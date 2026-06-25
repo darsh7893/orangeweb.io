@@ -4,7 +4,7 @@ $homePrefix = $isHome ? '' : './';
 ?>
     <header class="nav">
       <a class="logo" href="<?php echo $isHome ? '#top' : './'; ?>" aria-label="OrangeWeb home">
-        <img src="./assets/orangeweb-logo-io.png?v=20260625-logo1" alt="OrangeWeb" width="225" height="65">
+        <img src="./assets/orangeweb-logo-io.png?v=20260625-logo2" alt="OrangeWeb" width="225" height="65">
       </a>
       <nav aria-label="Main navigation">
         <a href="<?php echo $homePrefix; ?>#how-it-works">How it works</a>

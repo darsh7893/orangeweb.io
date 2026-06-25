@@ -3,7 +3,7 @@ $currentPage = basename($_SERVER['SCRIPT_NAME'], '.php');
 ?>
     <footer>
       <div class="footer-brand">
-        <img src="./assets/orangeweb-logo-io.png?v=20260625-logo1" alt="OrangeWeb" width="180" height="52">
+        <img src="./assets/orangeweb-logo-io.png?v=20260625-logo2" alt="OrangeWeb" width="180" height="52">
         <span>Copyright 2026 OrangeWeb.io. All rights reserved.</span>
       </div>
       <div class="footer-stack">
