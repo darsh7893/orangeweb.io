@@ -563,9 +563,9 @@ document.querySelectorAll(".selector button").forEach((button) => {
 document.querySelector(".brief-form").addEventListener("submit", (event) => {
   event.preventDefault();
   const data = new FormData(event.currentTarget);
+  const name = data.get("name") || "there";
   const business = data.get("business");
-  const request = data.get("request") || "booking a new customer";
-  document.querySelector("#form-note").textContent = `Demo request ready: ${business} receptionist handling "${request}".`;
+  document.querySelector("#form-note").textContent = `Thank you, ${name}! Your custom ${business} AI receptionist demo is ready. We will reach out shortly.`;
 });
 
 resize();
