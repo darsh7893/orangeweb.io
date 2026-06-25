@@ -16,7 +16,7 @@ const cases = {
     demoLines: ["Patient asks for the earliest available appointment this week.", "OrangeWeb AI confirms urgency, preferred time, and contact details."],
     systems: ["3:15 PM slot reserved", "New intake note created", "Reminder queued"],
     demoNote: "OrangeWeb AI captures visit intent, confirms urgency and preferred time, then prepares the appointment record and patient follow-up.",
-    url: "./ai-receptionist-for-clinics.html",
+    url: "ai-receptionist-for-clinics",
     prompt: "Create a premium Apple-style product demo video for OrangeWeb.io showing an AI receptionist answering a clinic call, extracting appointment details, and moving data into calendar, CRM, and SMS reminder screens. Minimal white background, navy typography, orange highlights, smooth UI transitions, realistic SaaS dashboard motion, no cartoon style."
   },
   realestate: {
@@ -34,7 +34,7 @@ const cases = {
     demoLines: ["Buyer asks whether a listing is still available.", "OrangeWeb AI qualifies location, budget, financing status, and showing window."],
     systems: ["Showing window held", "Lead profile updated", "Agent summary sent"],
     demoNote: "OrangeWeb AI qualifies the buyer, captures timing and financing context, then sends the agent a clean lead summary.",
-    url: "./ai-receptionist-for-real-estate.html",
+    url: "ai-receptionist-for-real-estate",
     prompt: "Create a premium Apple-style product demo video for OrangeWeb.io showing an AI receptionist responding to a real estate buyer lead, qualifying budget and timeline, then moving details into a CRM, showing calendar, and agent notification panel. Minimal SaaS UI, navy and orange palette, elegant motion."
   },
   spa: {
@@ -52,7 +52,7 @@ const cases = {
     demoLines: ["Guest asks which treatment fits dry skin.", "OrangeWeb AI recommends a service, confirms duration, and checks provider availability."],
     systems: ["Treatment selected", "Provider booked", "Rebooking reminder set"],
     demoNote: "OrangeWeb AI answers the treatment question, matches the guest to a service, checks provider fit, and queues follow-up.",
-    url: "./ai-receptionist-for-spas.html",
+    url: "ai-receptionist-for-spas",
     prompt: "Create a minimal Apple-style product demo video for OrangeWeb.io showing an AI receptionist helping a spa guest choose a treatment, book a provider, and queue SMS reminders. Show data moving between conversation, booking calendar, guest profile, and package recommendation panels."
   },
   home: {
@@ -70,7 +70,7 @@ const cases = {
     demoLines: ["Homeowner reports an active water heater leak.", "OrangeWeb AI checks urgency, location, valve status, and photo upload."],
     systems: ["Urgent job created", "Dispatcher alerted", "Photo link requested"],
     demoNote: "OrangeWeb AI checks urgency, captures address and issue details, then routes the job to dispatch with context.",
-    url: "./ai-receptionist-for-home-services.html",
+    url: "ai-receptionist-for-home-services",
     prompt: "Create an Apple-inspired SaaS demo video for OrangeWeb.io showing a home service AI receptionist triaging an urgent water heater leak, collecting address and photos, and moving data into dispatch, job priority, and technician notification screens."
   },
   medspa: {
@@ -88,7 +88,7 @@ const cases = {
     demoLines: ["Lead asks about injectables and first consultation options.", "OrangeWeb AI qualifies treatment goal, timing, and provider preference."],
     systems: ["Consult booked", "Lead score updated", "Prep instructions sent"],
     demoNote: "OrangeWeb AI qualifies treatment goals, consult timing, and provider preference before preparing the next step.",
-    url: "./ai-receptionist-for-medspas.html",
+    url: "ai-receptionist-for-medspas",
     prompt: "Create a sleek product demo video for OrangeWeb.io showing a medspa AI receptionist qualifying an injectable consultation lead, booking a consult, updating CRM lead score, and sending prep instructions. Minimal premium healthcare aesthetic, navy/orange brand palette."
   }
 };

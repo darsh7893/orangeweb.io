@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Redirect direct .php requests to clean URLs
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^\ ]+)\.php\ HTTP/
+RewriteRule ^(.*)\.php$ $1 [R=301,L]
+
+# Resolve clean URLs to .php files internally
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^/]+)$ $1.php [L]

@@ -59,45 +59,18 @@
     </script>
   </head>
   <body>
-    <header class="nav">
-      <a class="logo" href="./index.html" aria-label="OrangeWeb home">
-        <img src="./assets/orangeweb-logo-io.png?v=20260625-logo1" alt="OrangeWeb" width="225" height="65">
-      </a>
-      <nav aria-label="Main navigation">
-        <a href="./index.html#how-it-works">How it works</a>
-        <a href="./index.html#solutions">Solutions</a>
-        <a href="./index.html#pricing">Pricing</a>
-        <a href="./index.html#faq">FAQ</a>
-        <a href="./about.html">About</a>
-      </nav>
-      <a class="nav-button" href="./index.html#brief">Book Free Demo</a>
-      <div class="mobile-menu">
-        <button class="mobile-menu-trigger" type="button" aria-label="Open menu" aria-expanded="false">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4 7h16M4 12h16M4 17h16"></path>
-          </svg>
-        </button>
-        <nav aria-label="Mobile navigation">
-          <a href="./index.html#how-it-works">How it works</a>
-          <a href="./index.html#solutions">Solutions</a>
-          <a href="./index.html#pricing">Pricing</a>
-          <a href="./index.html#faq">FAQ</a>
-          <a href="./about.html">About</a>
-          <a href="./index.html#brief">Book Free Demo</a>
-        </nav>
-      </div>
-    </header>
+    <?php include 'header.php'; ?>
 
     <main class="solution-main">
       <section class="solution-hero">
         <div>
-          <p class="breadcrumb"><a href="./index.html">Home</a> / Clinics</p>
+          <p class="breadcrumb"><a href="./">Home</a> / Clinics</p>
           <p class="label">AI receptionist for clinics</p>
           <h1>Patient calls answered without adding front-desk pressure.</h1>
           <p class="subhead">OrangeWeb builds clinic reception workflows that answer common patient requests, collect the right intake details, and move appointments, reminders, and callbacks into the right place.</p>
           <div class="actions">
-            <a class="button primary" href="./index.html#brief">Book a clinic demo</a>
-            <a class="button ghost" href="./index.html#how-it-works">Watch workflow</a>
+            <a class="button primary" href="./#brief">Book a clinic demo</a>
+            <a class="button ghost" href="./#how-it-works">Watch workflow</a>
           </div>
         </div>
         <aside class="signal-panel">
@@ -139,36 +112,10 @@
           <h2>Test your clinic call flow.</h2>
           <p>Send the most common patient request you receive, and OrangeWeb can shape a short demo around it.</p>
         </div>
-        <a class="button" href="./index.html#brief">Book my AI demo</a>
+        <a class="button" href="./#brief">Book my AI demo</a>
       </aside>
     </main>
 
-    <footer>
-      <div class="footer-brand">
-        <img src="./assets/orangeweb-logo-io.png?v=20260625-logo1" alt="OrangeWeb" width="180" height="52">
-        <span>Copyright 2026 OrangeWeb.io. All rights reserved.</span>
-      </div>
-      <div class="footer-stack">
-        <nav class="footer-links" aria-label="Footer navigation">
-          <a href="./about.html">About</a>
-          <a href="./ai-receptionist-for-real-estate.html">Real estate</a>
-          <a href="./ai-receptionist-for-spas.html">Spas</a>
-          <a href="./ai-receptionist-for-home-services.html">Home services</a>
-          <a href="./ai-receptionist-for-medspas.html">Medspas</a>
-        </nav>
-        <nav class="social-links" aria-label="Social media">
-          <a href="https://www.linkedin.com/company/orangeweb-io" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 9.5V20M6.5 6.5v.1M11 20v-6.2c0-2.6 1.5-4.2 3.7-4.2 2.1 0 3.3 1.4 3.3 4.1V20M11 10h.1"></path></svg>
-          </a>
-          <a href="https://x.com/orangeweb_io" aria-label="X">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 4 11.7 16H20L8.3 4H4Zm16 0-7.2 8.1M11.2 14.3 4 20"></path></svg>
-          </a>
-          <a href="https://www.instagram.com/orangeweb.io" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"></rect><circle cx="12" cy="12" r="3.4"></circle><path d="M17.5 6.8v.1"></path></svg>
-          </a>
-        </nav>
-      </div>
-    </footer>
-    <script src="./site.js?v=20260625-form2"></script>
+    <?php include 'footer.php'; ?>
   </body>
 </html>
