@@ -106,135 +106,266 @@ camera.position.set(0, 0, 8);
 
 const group = new THREE.Group();
 scene.add(group);
-scene.add(new THREE.AmbientLight(0xffffff, 1.6));
 
-const light = new THREE.PointLight(0xff7a1a, 9, 18);
-light.position.set(2.8, 2.4, 4);
-scene.add(light);
+// Lights setup to make glossy materials pop
+scene.add(new THREE.AmbientLight(0xffffff, 0.9));
 
-const softLight = new THREE.PointLight(0xffffff, 6, 14);
-softLight.position.set(-3, -1, 4);
-scene.add(softLight);
+const dirLight = new THREE.DirectionalLight(0xffffff, 1.4);
+dirLight.position.set(5, 10, 7);
+scene.add(dirLight);
 
-const planet = new THREE.Group();
-group.add(planet);
+const pointLight = new THREE.PointLight(0xff7a1a, 2.5, 15);
+pointLight.position.set(-3, 3, 5);
+scene.add(pointLight);
 
-const cubeGeometry = new THREE.BoxGeometry(0.074, 0.074, 0.074);
-const voxelMaterial = new THREE.MeshStandardMaterial({
-  color: 0xff6a00,
-  roughness: 0.34,
-  metalness: 0.04,
-  emissive: 0xff5a00,
-  emissiveIntensity: 0.18
-});
-const accentMaterial = new THREE.MeshStandardMaterial({
-  color: 0x07162f,
-  roughness: 0.5,
-  metalness: 0.02,
-  emissive: 0x07162f,
-  emissiveIntensity: 0.04
-});
-const highlightMaterial = new THREE.MeshStandardMaterial({
-  color: 0xffffff,
-  roughness: 0.36,
-  metalness: 0
-});
+// Build the cute Orange Robot
+const robot = new THREE.Group();
+group.add(robot);
 
-const voxelCount = 23000;
-const planetMesh = new THREE.InstancedMesh(cubeGeometry, voxelMaterial, voxelCount);
-const accentMesh = new THREE.InstancedMesh(cubeGeometry, accentMaterial, 2400);
-const highlightMesh = new THREE.InstancedMesh(cubeGeometry, highlightMaterial, 800);
-planet.add(planetMesh, accentMesh, highlightMesh);
-
-const matrix = new THREE.Matrix4();
-const position = new THREE.Vector3();
-const quaternion = new THREE.Quaternion();
-const scale = new THREE.Vector3();
-const normal = new THREE.Vector3();
-
-function noise(x, y, z) {
-  return (
-    Math.sin(x * 3.1 + y * 1.7) +
-    Math.sin(y * 4.2 + z * 2.3) +
-    Math.sin(z * 3.7 + x * 2.6)
-  ) / 3;
-}
-
-function placeVoxels(mesh, max, predicate, sizeBase) {
-  let index = 0;
-  const grid = 37;
-  const half = (grid - 1) / 2;
-
-  for (let x = 0; x < grid; x += 1) {
-    for (let y = 0; y < grid; y += 1) {
-      for (let z = 0; z < grid; z += 1) {
-        if (index >= max) break;
-        const px = (x - half) / half;
-        const py = (y - half) / half;
-        const pz = (z - half) / half;
-        const radius = Math.sqrt(px * px + py * py + pz * pz);
-        if (radius > 0.78 || radius < 0.18) continue;
-
-        const surface = Math.abs(radius - 0.62);
-        const terrain = noise(px, py, pz);
-        const coreFill = radius < 0.56 && Math.sin((px + py + pz) * 18) > 0.68;
-        if (!coreFill && surface > 0.086 + terrain * 0.018) continue;
-        if (!predicate(px, py, pz, terrain)) continue;
-
-        normal.set(px, py, pz).normalize();
-        position.set(px, py, pz).multiplyScalar(3.18 + terrain * 0.18);
-        quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal);
-        const s = sizeBase * (0.82 + Math.max(terrain, -0.1) * 0.28);
-        scale.setScalar(s);
-        matrix.compose(position, quaternion, scale);
-        mesh.setMatrixAt(index, matrix);
-        index += 1;
-      }
-    }
-  }
-  mesh.count = index;
-  mesh.instanceMatrix.needsUpdate = true;
-}
-
-placeVoxels(planetMesh, voxelCount, (x, y, z, terrain) => {
-  const band = Math.sin((x + y * 0.6 + z * 0.25) * 9);
-  return terrain > -0.72 && band > -0.92;
-}, 1);
-
-placeVoxels(accentMesh, 1650, (x, y, z, terrain) => {
-  const continent = Math.sin(x * 9.5 + z * 4.2) + Math.cos(y * 8.2 - x * 2.6);
-  return continent > 1.12 && terrain > -0.35;
-}, 1.05);
-
-placeVoxels(highlightMesh, 520, (x, y, z, terrain) => {
-  const cap = y > 0.42 || y < -0.5;
-  return cap && terrain > -0.18 && Math.sin((x + z) * 18) > 0.22;
-}, 0.9);
-
-const ringMaterial = new THREE.MeshStandardMaterial({
+// Materials definitions
+const orangeMaterial = new THREE.MeshStandardMaterial({
   color: 0xff7a1a,
-  roughness: 0.28,
-  metalness: 0.12,
-  transparent: true,
-  opacity: 0.5
+  roughness: 0.18,
+  metalness: 0.2
 });
 
-const rings = [];
-for (let index = 0; index < 3; index += 1) {
-  const ring = new THREE.Mesh(new THREE.TorusGeometry(2.42 + index * 0.34, 0.026, 24, 220), ringMaterial);
-  ring.rotation.x = Math.PI / 2 + index * 0.28;
-  ring.rotation.y = index * 0.42;
-  group.add(ring);
-  rings.push(ring);
-}
+const whiteMaterial = new THREE.MeshStandardMaterial({
+  color: 0xf5f6f8,
+  roughness: 0.2,
+  metalness: 0.1
+});
 
+const darkNavyMaterial = new THREE.MeshStandardMaterial({
+  color: 0x07162f,
+  roughness: 0.3,
+  metalness: 0.2
+});
+
+const metalMaterial = new THREE.MeshStandardMaterial({
+  color: 0xa0a5ab,
+  roughness: 0.2,
+  metalness: 0.8
+});
+
+const eyeMaterial = new THREE.MeshStandardMaterial({
+  color: 0x00f0ff,
+  emissive: 0x00f0ff,
+  emissiveIntensity: 1.8
+});
+
+const glowOrangeMaterial = new THREE.MeshStandardMaterial({
+  color: 0xff7a1a,
+  emissive: 0xff7a1a,
+  emissiveIntensity: 1.8
+});
+
+// Neck
+const neckGeo = new THREE.CylinderGeometry(0.16, 0.16, 0.22, 16);
+const neck = new THREE.Mesh(neckGeo, metalMaterial);
+neck.position.y = 0.08;
+robot.add(neck);
+
+// Head Group
+const headGroup = new THREE.Group();
+headGroup.position.y = 0.65;
+robot.add(headGroup);
+
+// Head Mesh
+const headGeo = new THREE.BoxGeometry(1.2, 0.9, 0.9);
+const headMesh = new THREE.Mesh(headGeo, orangeMaterial);
+headGroup.add(headMesh);
+
+// Face Screen
+const faceGeo = new THREE.BoxGeometry(0.98, 0.68, 0.05);
+const facePlate = new THREE.Mesh(faceGeo, darkNavyMaterial);
+facePlate.position.set(0, 0, 0.44);
+headGroup.add(facePlate);
+
+// Eyes (glowing blue)
+const eyeGeo = new THREE.SphereGeometry(0.09, 16, 16);
+const leftEye = new THREE.Mesh(eyeGeo, eyeMaterial);
+leftEye.position.set(-0.25, 0.05, 0.47);
+headGroup.add(leftEye);
+
+const rightEye = new THREE.Mesh(eyeGeo, eyeMaterial);
+rightEye.position.set(0.25, 0.05, 0.47);
+headGroup.add(rightEye);
+
+// Blushes (cute details)
+const blushGeo = new THREE.BoxGeometry(0.12, 0.04, 0.01);
+const blushMaterial = new THREE.MeshBasicMaterial({ color: 0xff5c5c, transparent: true, opacity: 0.65 });
+const leftBlush = new THREE.Mesh(blushGeo, blushMaterial);
+leftBlush.position.set(-0.3, -0.12, 0.47);
+headGroup.add(leftBlush);
+
+const rightBlush = new THREE.Mesh(blushGeo, blushMaterial);
+rightBlush.position.set(0.3, -0.12, 0.47);
+headGroup.add(rightBlush);
+
+// Earcups (Headset, directly related to calls and receptionists)
+const earCupGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.12, 32);
+const leftEarCup = new THREE.Mesh(earCupGeo, darkNavyMaterial);
+leftEarCup.rotation.z = Math.PI / 2;
+leftEarCup.position.set(-0.62, 0, 0);
+headGroup.add(leftEarCup);
+
+const rightEarCup = new THREE.Mesh(earCupGeo, darkNavyMaterial);
+rightEarCup.rotation.z = Math.PI / 2;
+rightEarCup.position.set(0.62, 0, 0);
+headGroup.add(rightEarCup);
+
+const earAccentGeo = new THREE.CylinderGeometry(0.08, 0.08, 0.04, 16);
+const leftEarAccent = new THREE.Mesh(earAccentGeo, orangeMaterial);
+leftEarAccent.rotation.z = Math.PI / 2;
+leftEarAccent.position.set(-0.69, 0, 0);
+headGroup.add(leftEarAccent);
+
+const rightEarAccent = new THREE.Mesh(earAccentGeo, orangeMaterial);
+rightEarAccent.rotation.z = Math.PI / 2;
+rightEarAccent.position.set(0.69, 0, 0);
+headGroup.add(rightEarAccent);
+
+// Headband
+const headbandGeo = new THREE.TorusGeometry(0.6, 0.04, 8, 32, Math.PI);
+const headband = new THREE.Mesh(headbandGeo, darkNavyMaterial);
+headband.position.set(0, 0.05, 0);
+headGroup.add(headband);
+
+// Mic Arm
+const micArmGeo = new THREE.CylinderGeometry(0.015, 0.015, 0.38, 8);
+const micArm = new THREE.Mesh(micArmGeo, metalMaterial);
+micArm.rotation.z = -Math.PI / 4;
+micArm.rotation.x = Math.PI / 4;
+micArm.position.set(-0.55, -0.18, 0.2);
+headGroup.add(micArm);
+
+const micTipGeo = new THREE.SphereGeometry(0.045, 16, 16);
+const micTip = new THREE.Mesh(micTipGeo, darkNavyMaterial);
+micTip.position.set(-0.68, -0.32, 0.35);
+headGroup.add(micTip);
+
+// Antenna
+const antennaPoleGeo = new THREE.CylinderGeometry(0.015, 0.015, 0.3, 8);
+const antennaPole = new THREE.Mesh(antennaPoleGeo, metalMaterial);
+antennaPole.position.set(0, 0.58, 0);
+headGroup.add(antennaPole);
+
+const antennaTipGeo = new THREE.SphereGeometry(0.06, 16, 16);
+const antennaTip = new THREE.Mesh(antennaTipGeo, glowOrangeMaterial);
+antennaTip.position.set(0, 0.72, 0);
+headGroup.add(antennaTip);
+
+// Body Group
+const bodyGroup = new THREE.Group();
+bodyGroup.position.y = -0.55;
+robot.add(bodyGroup);
+
+// Main Body Cylinder
+const bodyGeo = new THREE.CylinderGeometry(0.55, 0.6, 0.8, 32);
+const bodyMesh = new THREE.Mesh(bodyGeo, orangeMaterial);
+bodyGroup.add(bodyMesh);
+
+// Top/Bottom Body Rounding
+const bodyTopGeo = new THREE.SphereGeometry(0.55, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+const bodyTop = new THREE.Mesh(bodyTopGeo, orangeMaterial);
+bodyTop.rotation.x = -Math.PI / 2;
+bodyTop.position.y = 0.4;
+bodyGroup.add(bodyTop);
+
+const bodyBottomGeo = new THREE.SphereGeometry(0.6, 32, 16, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2);
+const bodyBottom = new THREE.Mesh(bodyBottomGeo, orangeMaterial);
+bodyBottom.rotation.x = -Math.PI / 2;
+bodyBottom.position.y = -0.4;
+bodyGroup.add(bodyBottom);
+
+// Belly Plate
+const bellyGeo = new THREE.BoxGeometry(0.5, 0.45, 0.05);
+const bellyPlate = new THREE.Mesh(bellyGeo, whiteMaterial);
+bellyPlate.position.set(0, 0, 0.56);
+bodyGroup.add(bellyPlate);
+
+// Signal Indicator (Chest Light)
+const signalGeo = new THREE.CylinderGeometry(0.1, 0.1, 0.03, 32);
+const signalLogo = new THREE.Mesh(signalGeo, glowOrangeMaterial);
+signalLogo.rotation.x = Math.PI / 2;
+signalLogo.position.set(0, 0, 0.59);
+bodyGroup.add(signalLogo);
+
+// Jet/Thruster
+const jetGeo = new THREE.ConeGeometry(0.25, 0.25, 32);
+const jet = new THREE.Mesh(jetGeo, metalMaterial);
+jet.rotation.x = Math.PI;
+jet.position.set(0, -1.05, 0);
+bodyGroup.add(jet);
+
+const flameGeo = new THREE.ConeGeometry(0.18, 0.35, 16);
+const flame = new THREE.Mesh(flameGeo, glowOrangeMaterial);
+flame.rotation.x = Math.PI;
+flame.position.set(0, -1.25, 0);
+bodyGroup.add(flame);
+
+// Floating Left Arm
+const leftArmGroup = new THREE.Group();
+leftArmGroup.position.set(-0.78, -0.3, 0);
+robot.add(leftArmGroup);
+
+const leftShoulderGeo = new THREE.SphereGeometry(0.07, 16, 16);
+const leftShoulder = new THREE.Mesh(leftShoulderGeo, metalMaterial);
+leftArmGroup.add(leftShoulder);
+
+const leftForearmGeo = new THREE.CylinderGeometry(0.05, 0.045, 0.3, 16);
+const leftForearm = new THREE.Mesh(leftForearmGeo, orangeMaterial);
+leftForearm.position.y = -0.15;
+leftArmGroup.add(leftForearm);
+
+const leftHandGeo = new THREE.SphereGeometry(0.065, 16, 16);
+const leftHand = new THREE.Mesh(leftHandGeo, whiteMaterial);
+leftHand.position.y = -0.3;
+leftArmGroup.add(leftHand);
+
+// Floating Right Arm
+const rightArmGroup = new THREE.Group();
+rightArmGroup.position.set(0.78, -0.3, 0);
+robot.add(rightArmGroup);
+
+const rightShould = new THREE.Mesh(leftShoulderGeo, metalMaterial);
+rightArmGroup.add(rightShould);
+
+const rightForearm = new THREE.Mesh(leftForearmGeo, orangeMaterial);
+rightForearm.position.y = -0.15;
+rightArmGroup.add(rightForearm);
+
+const rightHand = new THREE.Mesh(leftHandGeo, whiteMaterial);
+rightHand.position.y = -0.3;
+rightArmGroup.add(rightHand);
+
+// Animation / Drag Configuration
 const canvas = renderer.domElement;
 const clock = new THREE.Clock();
-const dragRotation = new THREE.Vector2(-0.18, 0);
-const velocity = new THREE.Vector2(0, 0.0035);
+const dragRotation = new THREE.Vector2(0, 0);
+const velocity = new THREE.Vector2(0, 0);
 let dragging = false;
 let lastX = 0;
 let lastY = 0;
+
+// Mouse coordinates and target rotations for head tracking
+const mouse = new THREE.Vector2();
+const targetHeadRotation = new THREE.Vector2();
+const targetBodyRotation = new THREE.Vector2();
+
+window.addEventListener("pointermove", (event) => {
+  if (dragging) return;
+  // Calculate normalized device coordinates (-1 to 1) relative to screen
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  // Set rotation targets (head moves more than body)
+  targetHeadRotation.y = mouse.x * 0.55;
+  targetHeadRotation.x = mouse.y * 0.35;
+
+  targetBodyRotation.y = mouse.x * 0.2;
+  targetBodyRotation.x = mouse.y * 0.12;
+});
 
 function resize() {
   const parent = canvas.parentElement;
@@ -244,25 +375,65 @@ function resize() {
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
-  group.position.set(0, 0, 0);
-  group.scale.setScalar(0.74);
+  group.position.set(0, -0.3, 0);
+  group.scale.setScalar(1.22);
 }
 
 function animate() {
   const elapsed = clock.getElapsedTime();
+
+  // 1. Gently bob the robot up and down (hover effect)
+  robot.position.y = 0.2 + Math.sin(elapsed * 2.5) * 0.08;
+
+  // Gentle floating motion for the arms (secondary action)
+  leftArmGroup.position.y = -0.3 + Math.sin(elapsed * 3.0) * 0.035;
+  leftArmGroup.rotation.z = Math.sin(elapsed * 2.0) * 0.05;
+
+  rightArmGroup.position.y = -0.3 + Math.sin(elapsed * 3.0 + Math.PI) * 0.035;
+  rightArmGroup.rotation.z = Math.sin(elapsed * 2.0 + Math.PI) * 0.05;
+
+  // Flicker the jet thruster flame
+  flame.scale.y = 0.85 + Math.sin(elapsed * 28.0) * 0.15;
+  flame.scale.x = 0.9 + Math.cos(elapsed * 22.0) * 0.08;
+  flame.scale.z = 0.9 + Math.cos(elapsed * 22.0) * 0.08;
+
+  // Pulse the antenna tip and logo light
+  antennaTip.material.emissiveIntensity = 1.3 + Math.sin(elapsed * 8.0) * 0.3;
+  signalLogo.material.emissiveIntensity = 1.3 + Math.cos(elapsed * 8.0) * 0.3;
+
+  // 2. Head & body tracking / dragging
   if (!dragging) {
-    dragRotation.y += velocity.y;
-    velocity.multiplyScalar(0.985);
-    if (Math.abs(velocity.y) < 0.0025) velocity.y = 0.0025;
+    // Lerp smoothly towards mouse target rotation
+    headGroup.rotation.y += (targetHeadRotation.y - headGroup.rotation.y) * 0.08;
+    headGroup.rotation.x += (targetHeadRotation.x - headGroup.rotation.x) * 0.08;
+
+    bodyGroup.rotation.y += (targetBodyRotation.y - bodyGroup.rotation.y) * 0.08;
+    bodyGroup.rotation.x += (targetBodyRotation.x - bodyGroup.rotation.x) * 0.08;
+
+    // Decay the drag rotation back to origin
+    robot.rotation.y += (0 - robot.rotation.y) * 0.05;
+    robot.rotation.x += (0 - robot.rotation.x) * 0.05;
+  } else {
+    // Apply manual drag rotation directly to the robot group
+    robot.rotation.y = dragRotation.y;
+    robot.rotation.x = dragRotation.x;
+
+    // Center the head and body inside the rotated robot
+    headGroup.rotation.y += (0 - headGroup.rotation.y) * 0.1;
+    headGroup.rotation.x += (0 - headGroup.rotation.x) * 0.1;
+    bodyGroup.rotation.y += (0 - bodyGroup.rotation.y) * 0.1;
+    bodyGroup.rotation.x += (0 - bodyGroup.rotation.x) * 0.1;
   }
 
-  planet.rotation.x = dragRotation.x;
-  planet.rotation.y = dragRotation.y;
-  planet.scale.setScalar(1 + Math.sin(elapsed * 2.1) * 0.012);
-  rings.forEach((ring, index) => {
-    ring.rotation.z = elapsed * (0.06 + index * 0.024) + dragRotation.y * 0.15;
-    ring.rotation.y += 0.0007 * (index + 1);
-  });
+  // 3. Random blinks for the eyes to look alive
+  if (Math.random() < 0.008) {
+    leftEye.scale.y = 0.1;
+    rightEye.scale.y = 0.1;
+  } else {
+    leftEye.scale.y += (1.0 - leftEye.scale.y) * 0.2;
+    rightEye.scale.y += (1.0 - rightEye.scale.y) * 0.2;
+  }
+
   camera.lookAt(0, 0, 0);
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
@@ -284,8 +455,7 @@ function drag(event) {
   const dy = event.clientY - lastY;
   dragRotation.y += dx * 0.006;
   dragRotation.x += dy * 0.004;
-  dragRotation.x = Math.max(-0.9, Math.min(0.55, dragRotation.x));
-  velocity.set(dy * 0.0004, dx * 0.00035);
+  dragRotation.x = Math.max(-0.6, Math.min(0.6, dragRotation.x));
   lastX = event.clientX;
   lastY = event.clientY;
 }
