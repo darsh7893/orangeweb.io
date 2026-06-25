@@ -45,6 +45,35 @@ document.querySelector(".discovery-form")?.addEventListener("submit", (event) =>
   event.preventDefault();
   const data = new FormData(event.currentTarget);
   const name = data.get("name") || "there";
-  const note = document.querySelector("#discovery-note");
-  if (note) note.textContent = `Thank you, ${name}! Your AI receptionist demo request has been received. We will reach out shortly.`;
+  const email = data.get("email");
+  const phone = data.get("phone");
+  const website = data.get("website") || "none";
+
+  const button = event.currentTarget.querySelector("button[type='submit']");
+  const originalText = button.textContent;
+  button.disabled = true;
+  button.textContent = "Sending...";
+
+  emailjs.send("service_2h2vzd4", "template_wlizxxk", {
+    name: name,
+    email: email,
+    phone: phone,
+    website: website,
+    source: "About Page Discovery"
+  }).then(
+    () => {
+      button.disabled = false;
+      button.textContent = originalText;
+      const note = document.querySelector("#discovery-note");
+      if (note) note.textContent = `Thank you, ${name}! Your AI receptionist demo request has been received. We will reach out shortly.`;
+      event.target.reset();
+    },
+    (error) => {
+      button.disabled = false;
+      button.textContent = originalText;
+      const note = document.querySelector("#discovery-note");
+      if (note) note.textContent = "Oops! Something went wrong. Please try again later.";
+      console.error("EmailJS failed...", error);
+    }
+  );
 });
