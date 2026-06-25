@@ -472,20 +472,26 @@ canvas.addEventListener("pointermove", drag);
 canvas.addEventListener("pointerup", stopDrag);
 canvas.addEventListener("pointercancel", stopDrag);
 
-const caseLabel = document.querySelector("#case-label");
-const caseTitle = document.querySelector("#case-title");
-const caseCopy = document.querySelector("#case-copy");
-const casePoints = document.querySelector("#case-points");
-const messageList = document.querySelector("#message-list");
-const recordingTitle = document.querySelector("#recording-title");
-const transcriptTrack = document.querySelector("#transcript-track");
-const systemOne = document.querySelector("#system-one");
-const systemTwo = document.querySelector("#system-two");
-const systemThree = document.querySelector("#system-three");
-const videoPrompt = document.querySelector("#video-prompt");
-const caseLink = document.querySelector("#case-link");
-const demoAudio = document.querySelector("#demo-audio");
-const audioToggle = document.querySelector("#audio-toggle");
+let caseLabel, caseTitle, caseCopy, casePoints, messageList, recordingTitle, transcriptTrack, systemOne, systemTwo, systemThree, videoPrompt, caseLink, demoAudio, audioToggle;
+
+try {
+  caseLabel = document.querySelector("#case-label");
+  caseTitle = document.querySelector("#case-title");
+  caseCopy = document.querySelector("#case-copy");
+  casePoints = document.querySelector("#case-points");
+  messageList = document.querySelector("#message-list");
+  recordingTitle = document.querySelector("#recording-title");
+  transcriptTrack = document.querySelector("#transcript-track");
+  systemOne = document.querySelector("#system-one");
+  systemTwo = document.querySelector("#system-two");
+  systemThree = document.querySelector("#system-three");
+  videoPrompt = document.querySelector("#video-prompt");
+  caseLink = document.querySelector("#case-link");
+  demoAudio = document.querySelector("#demo-audio");
+  audioToggle = document.querySelector("#audio-toggle");
+} catch (e) {
+  console.error("DOM selection failed:", e);
+}
 
 if (demoAudio && audioToggle) {
   let audioAllowed = false;
@@ -531,25 +537,33 @@ if (demoAudio && audioToggle) {
 }
 
 function renderCase(key) {
-  const item = cases[key];
-  caseLabel.textContent = item.label;
-  caseTitle.textContent = item.title;
-  caseCopy.textContent = item.copy;
-  casePoints.innerHTML = item.points.map((point) => `<li>${point}</li>`).join("");
-  messageList.innerHTML = item.messages.map(([speaker, message]) => `<p><b>${speaker}</b>${message}</p>`).join("");
-  recordingTitle.textContent = item.recording;
-  transcriptTrack.innerHTML = [...item.messages, ...item.messages]
-    .map(([speaker, message]) => {
-      const type = speaker === "OrangeWeb AI" ? "ai" : "caller";
-      return `<p class="transcript-line ${type}"><b>${speaker}</b><span>${message}</span></p>`;
-    })
-    .join("");
-  systemOne.textContent = item.systems[0];
-  systemTwo.textContent = item.systems[1];
-  systemThree.textContent = item.systems[2];
-  videoPrompt.textContent = item.demoNote;
-  caseLink.href = item.url;
-  caseLink.textContent = "Learn more";
+  try {
+    const item = cases[key];
+    if (caseLabel) caseLabel.textContent = item.label;
+    if (caseTitle) caseTitle.textContent = item.title;
+    if (caseCopy) caseCopy.textContent = item.copy;
+    if (casePoints) casePoints.innerHTML = item.points.map((point) => `<li>${point}</li>`).join("");
+    if (messageList) messageList.innerHTML = item.messages.map(([speaker, message]) => `<p><b>${speaker}</b>${message}</p>`).join("");
+    if (recordingTitle) recordingTitle.textContent = item.recording;
+    if (transcriptTrack) {
+      transcriptTrack.innerHTML = [...item.messages, ...item.messages]
+        .map(([speaker, message]) => {
+          const type = speaker === "OrangeWeb AI" ? "ai" : "caller";
+          return `<p class="transcript-line ${type}"><b>${speaker}</b><span>${message}</span></p>`;
+        })
+        .join("");
+    }
+    if (systemOne) systemOne.textContent = item.systems[0];
+    if (systemTwo) systemTwo.textContent = item.systems[1];
+    if (systemThree) systemThree.textContent = item.systems[2];
+    if (videoPrompt) videoPrompt.textContent = item.demoNote;
+    if (caseLink) {
+      caseLink.href = item.url;
+      caseLink.textContent = "Learn more";
+    }
+  } catch (e) {
+    console.error("renderCase failed:", e);
+  }
 }
 
 document.querySelectorAll(".selector button").forEach((button) => {
@@ -560,40 +574,45 @@ document.querySelectorAll(".selector button").forEach((button) => {
   });
 });
 
-document.querySelector(".brief-form").addEventListener("submit", (event) => {
-  event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  const name = data.get("name") || "there";
-  const email = data.get("email");
-  const phone = data.get("phone");
-  const website = data.get("website") || "none";
+const briefForm = document.querySelector(".brief-form");
+if (briefForm) {
+  briefForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const name = data.get("name") || "there";
+    const email = data.get("email");
+    const phone = data.get("phone");
+    const website = data.get("website") || "none";
 
-  const button = event.currentTarget.querySelector("button[type='submit']");
-  const originalText = button.textContent;
-  button.disabled = true;
-  button.textContent = "Sending...";
+    const button = event.currentTarget.querySelector("button[type='submit']");
+    const originalText = button.textContent;
+    button.disabled = true;
+    button.textContent = "Sending...";
 
-  emailjs.send("service_2h2vzd4", "template_wlizxxk", {
-    name: name,
-    email: email,
-    phone: phone,
-    website: website,
-    source: "Homepage Book Demo"
-  }).then(
-    () => {
-      button.disabled = false;
-      button.textContent = originalText;
-      document.querySelector("#form-note").textContent = `Thank you, ${name}! Your AI receptionist demo request has been received. We will reach out shortly.`;
-      event.target.reset();
-    },
-    (error) => {
-      button.disabled = false;
-      button.textContent = originalText;
-      document.querySelector("#form-note").textContent = "Oops! Something went wrong. Please try again later.";
-      console.error("EmailJS failed...", error);
-    }
-  );
-});
+    emailjs.send("service_2h2vzd4", "template_wlizxxk", {
+      name: name,
+      email: email,
+      phone: phone,
+      website: website,
+      source: "Homepage Book Demo"
+    }).then(
+      () => {
+        button.disabled = false;
+        button.textContent = originalText;
+        const formNote = document.querySelector("#form-note");
+        if (formNote) formNote.textContent = `Thank you, ${name}! Your AI receptionist demo request has been received. We will reach out shortly.`;
+        event.target.reset();
+      },
+      (error) => {
+        button.disabled = false;
+        button.textContent = originalText;
+        const formNote = document.querySelector("#form-note");
+        if (formNote) formNote.textContent = "Oops! Something went wrong. Please try again later.";
+        console.error("EmailJS failed...", error);
+      }
+    );
+  });
+}
 
 resize();
 animate();
