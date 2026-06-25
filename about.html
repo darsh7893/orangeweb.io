@@ -123,23 +123,23 @@
         <form class="discovery-form">
           <label>
             Name
-            <input name="name" placeholder="Your name">
+            <input type="text" name="name" required placeholder="Your full name">
           </label>
           <label>
             Email
-            <input type="email" name="email" placeholder="you@company.com">
+            <input type="email" name="email" required placeholder="you@company.com">
           </label>
           <label>
-            Company
-            <input name="company" placeholder="Company name">
+            Phone
+            <input type="tel" name="phone" required placeholder="(555) 555-5555">
           </label>
           <label>
-            What should AI help with?
-            <textarea name="pain" placeholder="Missed leads, support volume, manual admin, reporting, follow-up..."></textarea>
+            Website
+            <input type="url" name="website" placeholder="https://yourwebsite.com">
           </label>
           <button type="submit">Schedule discovery call</button>
-          <p class="form-note" id="discovery-note" role="status"></p>
         </form>
+        <p class="form-note" id="discovery-note" role="status"></p>
       </section>
     </main>
 

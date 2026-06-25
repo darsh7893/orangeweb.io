@@ -1539,16 +1539,19 @@ footer img {
 }
 
 @media (min-width: 768px) {
-  .brief-form {
+  .brief-form,
+  .discovery-form {
     grid-template-columns: 1fr 1fr;
     gap: 16px 14px;
   }
 
-  .brief-form label {
+  .brief-form label,
+  .discovery-form label {
     grid-column: span 1;
   }
 
-  .brief-form button {
+  .brief-form button,
+  .discovery-form button {
     grid-column: span 2;
   }
 }

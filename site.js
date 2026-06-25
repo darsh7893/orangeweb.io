@@ -44,7 +44,7 @@ document.querySelectorAll(".selector button[data-detail-url]").forEach((button) 
 document.querySelector(".discovery-form")?.addEventListener("submit", (event) => {
   event.preventDefault();
   const data = new FormData(event.currentTarget);
-  const company = data.get("company") || "your business";
+  const name = data.get("name") || "there";
   const note = document.querySelector("#discovery-note");
-  if (note) note.textContent = `Discovery request noted for ${company}.`;
+  if (note) note.textContent = `Thank you, ${name}! Your discovery call request has been received. We will reach out shortly.`;
 });
