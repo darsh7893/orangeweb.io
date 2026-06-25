@@ -1084,7 +1084,7 @@ h3 {
 
 .brief {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.66fr);
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
   gap: clamp(22px, 4vw, 42px);
   align-items: start;
   padding: clamp(30px, 4vw, 44px);
@@ -1108,7 +1108,7 @@ h3 {
   display: grid;
   gap: 13px;
   align-self: center;
-  width: min(100%, 430px);
+  width: min(100%, 540px);
   justify-self: end;
 }
 
@@ -1535,6 +1535,19 @@ footer img {
 @media (min-width: 961px) {
   .product-stage {
     justify-items: center;
+  }
+
+  .brief-form {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 14px;
+  }
+
+  .brief-form label {
+    grid-column: span 1;
+  }
+
+  .brief-form button {
+    grid-column: span 2;
   }
 }
 
