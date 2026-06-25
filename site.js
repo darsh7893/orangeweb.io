@@ -46,5 +46,5 @@ document.querySelector(".discovery-form")?.addEventListener("submit", (event) =>
   const data = new FormData(event.currentTarget);
   const name = data.get("name") || "there";
   const note = document.querySelector("#discovery-note");
-  if (note) note.textContent = `Thank you, ${name}! Your discovery call request has been received. We will reach out shortly.`;
+  if (note) note.textContent = `Thank you, ${name}! Your AI receptionist demo request has been received. We will reach out shortly.`;
 });
