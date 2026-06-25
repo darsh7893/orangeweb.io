@@ -1536,7 +1536,9 @@ footer img {
   .product-stage {
     justify-items: center;
   }
+}
 
+@media (min-width: 768px) {
   .brief-form {
     grid-template-columns: 1fr 1fr;
     gap: 16px 14px;
