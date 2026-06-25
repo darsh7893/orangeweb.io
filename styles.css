@@ -1088,6 +1088,7 @@ h3 {
   gap: clamp(22px, 4vw, 42px);
   align-items: start;
   padding: clamp(30px, 4vw, 44px);
+  margin: -40px auto 80px;
 }
 
 .brief .label {

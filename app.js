@@ -564,8 +564,7 @@ document.querySelector(".brief-form").addEventListener("submit", (event) => {
   event.preventDefault();
   const data = new FormData(event.currentTarget);
   const name = data.get("name") || "there";
-  const business = data.get("business");
-  document.querySelector("#form-note").textContent = `Thank you, ${name}! Your custom ${business} AI receptionist demo is ready. We will reach out shortly.`;
+  document.querySelector("#form-note").textContent = `Thank you, ${name}! Your AI receptionist demo request has been received. We will reach out shortly.`;
 });
 
 resize();
