@@ -1,5 +1,4 @@
-import * as THREE from "./assets/three.module.js";
-
+(function() {
 const cases = {
   clinic: {
     label: "Clinic",
@@ -616,3 +615,4 @@ if (briefForm) {
 
 resize();
 animate();
+})();

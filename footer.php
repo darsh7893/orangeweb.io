@@ -44,5 +44,6 @@ $currentPage = basename($_SERVER['SCRIPT_NAME'], '.php');
     <script src="./site.js?v=20260625-form2"></script>
     <!-- 3D Robot script loaded only on Homepage -->
     <?php if ($currentPage === 'index'): ?>
-    <script type="module" src="./app.js?v=20260625-form2"></script>
+    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+    <script src="./app.js?v=20260625-robot-cdn1"></script>
     <?php endif; ?>
