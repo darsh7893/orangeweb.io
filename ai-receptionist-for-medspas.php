@@ -65,7 +65,7 @@
         <div>
           <p class="breadcrumb"><a href="./">Home</a> / Medspas</p>
           <p class="label">AI receptionist for medspas</p>
-          <h1>Protect consult demand before it cools off.</h1>
+          <h1>Book consultations instantly.</h1>
           <p class="subhead">OrangeWeb builds medspa reception workflows that qualify treatment interest, book consults, send prep instructions, and keep high-intent leads moving.</p>
           <div class="actions"><a class="button primary" href="./#brief">Book a medspa demo</a><a class="button ghost" href="./#how-it-works">Watch workflow</a></div>
         </div>
@@ -76,7 +76,7 @@
         </aside>
       </section>
       <section class="solution-section">
-        <div class="section-copy"><p class="label">What it handles</p><h2>Make high-ticket inquiries easier to convert.</h2></div>
+        <div class="section-copy"><p class="label">What it handles</p><h2>Convert consult inquiries.</h2></div>
         <div class="solution-grid">
           <article><span>Consult requests</span><p>Ask about treatment goals, timeline, provider preference, and appointment windows before booking or routing.</p></article>
           <article><span>Treatment questions</span><p>Answer approved basics from your service menu while routing medical, pricing, and edge-case questions to staff.</p></article>
@@ -84,13 +84,13 @@
         </div>
       </section>
       <section class="solution-section">
-        <div class="section-copy"><p class="label">Buyer questions</p><h2>Premium tone with clear boundaries.</h2></div>
+        <div class="section-copy"><p class="label">Buyer questions</p><h2>Premium tone, safe limits.</h2></div>
         <div class="answer-grid">
           <article><span>Will it over-answer medical questions?</span><p>No. The workflow can be built to stay within approved FAQ language and escalate anything outside policy.</p></article>
           <article><span>Can it help with paid lead traffic?</span><p>Yes. It can respond quickly to inbound calls, forms, and missed-call texts so ad-driven interest does not sit untouched.</p></article>
         </div>
       </section>
-      <aside class="mini-cta"><div><h2>Try a consult request.</h2><p>Send a real treatment inquiry and hear how OrangeWeb AI qualifies it before the staff handoff.</p></div><a class="button" href="./#brief">Book my AI demo</a></aside>
+      <aside class="mini-cta"><div><h2>Test a consult request.</h2><p>Send a real treatment inquiry and hear how OrangeWeb AI qualifies it before the staff handoff.</p></div><a class="button" href="./#brief">Book my AI demo</a></aside>
     </main>
     <?php include 'footer.php'; ?>
   </body>

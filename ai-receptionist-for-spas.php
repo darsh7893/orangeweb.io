@@ -65,7 +65,7 @@
         <div>
           <p class="breadcrumb"><a href="./">Home</a> / Spas</p>
           <p class="label">AI receptionist for spas</p>
-          <h1>Book guests while your team stays with the client.</h1>
+          <h1>Book guests seamlessly.</h1>
           <p class="subhead">OrangeWeb builds spa reception workflows that answer treatment questions, match guests to services, book providers, and keep rebooking conversations moving.</p>
           <div class="actions"><a class="button primary" href="./#brief">Book a spa demo</a><a class="button ghost" href="./#how-it-works">Watch workflow</a></div>
         </div>
@@ -76,7 +76,7 @@
         </aside>
       </section>
       <section class="solution-section">
-        <div class="section-copy"><p class="label">What it handles</p><h2>Give every guest a polished first answer.</h2></div>
+        <div class="section-copy"><p class="label">What it handles</p><h2>Polished guest responses.</h2></div>
         <div class="solution-grid">
           <article><span>Treatment questions</span><p>Answer menu, duration, package, add-on, and preparation questions in the language of your brand.</p></article>
           <article><span>Booking and rescheduling</span><p>Collect date preference, provider preference, service type, and contact details before booking or routing.</p></article>
@@ -84,13 +84,13 @@
         </div>
       </section>
       <section class="solution-section">
-        <div class="section-copy"><p class="label">Buyer questions</p><h2>Luxury tone with operational discipline.</h2></div>
+        <div class="section-copy"><p class="label">Buyer questions</p><h2>Luxury brand standards.</h2></div>
         <div class="answer-grid">
           <article><span>Will it feel off-brand?</span><p>No. The call flow can be written around your service menu, tone, provider names, and guest experience standards.</p></article>
           <article><span>What if a guest asks something sensitive?</span><p>The assistant can use safe boundaries and route contraindications, complaints, refunds, and human-only questions to staff.</p></article>
         </div>
       </section>
-      <aside class="mini-cta"><div><h2>Try a real spa request.</h2><p>Use a common treatment question and see how OrangeWeb AI turns it into a booking-ready conversation.</p></div><a class="button" href="./#brief">Book my AI demo</a></aside>
+      <aside class="mini-cta"><div><h2>Test a spa request.</h2><p>Use a common treatment question and see how OrangeWeb AI turns it into a booking-ready conversation.</p></div><a class="button" href="./#brief">Book my AI demo</a></aside>
     </main>
     <?php include 'footer.php'; ?>
   </body>

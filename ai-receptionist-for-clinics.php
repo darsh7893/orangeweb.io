@@ -66,7 +66,7 @@
         <div>
           <p class="breadcrumb"><a href="./">Home</a> / Clinics</p>
           <p class="label">AI receptionist for clinics</p>
-          <h1>Patient calls answered without adding front-desk pressure.</h1>
+          <h1>Patient calls answered smoothly.</h1>
           <p class="subhead">OrangeWeb builds clinic reception workflows that answer common patient requests, collect the right intake details, and move appointments, reminders, and callbacks into the right place.</p>
           <div class="actions">
             <a class="button primary" href="./#brief">Book a clinic demo</a>
@@ -87,7 +87,7 @@
       <section class="solution-section">
         <div class="section-copy">
           <p class="label">What it handles</p>
-          <h2>The first patient conversation becomes structured work.</h2>
+          <h2>Structured patient intake.</h2>
         </div>
         <div class="solution-grid">
           <article><span>Scheduling requests</span><p>Offer available next steps, capture preferred windows, and create a clean booking or callback record.</p></article>
@@ -99,7 +99,7 @@
       <section class="solution-section">
         <div class="section-copy">
           <p class="label">Buyer questions</p>
-          <h2>Built for trust, not a generic bot script.</h2>
+          <h2>Built for patient trust.</h2>
         </div>
         <div class="answer-grid">
           <article><span>Will patients know what to do next?</span><p>Yes. The assistant confirms the request, repeats key details, and sends SMS confirmations, form links, or callback expectations.</p></article>
@@ -109,7 +109,7 @@
 
       <aside class="mini-cta">
         <div>
-          <h2>Test your clinic call flow.</h2>
+          <h2>Test your call flow.</h2>
           <p>Send the most common patient request you receive, and OrangeWeb can shape a short demo around it.</p>
         </div>
         <a class="button" href="./#brief">Book my AI demo</a>

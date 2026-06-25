@@ -65,7 +65,7 @@
         <div>
           <p class="breadcrumb"><a href="./">Home</a> / Real estate</p>
           <p class="label">AI receptionist for real estate</p>
-          <h1>Respond while buyer intent is still warm.</h1>
+          <h1>Respond to leads instantly.</h1>
           <p class="subhead">OrangeWeb gives agents and teams a receptionist workflow that answers listing questions, qualifies leads, captures showing windows, and sends the agent a useful summary.</p>
           <div class="actions">
             <a class="button primary" href="./#brief">Book a real estate demo</a>
@@ -85,7 +85,7 @@
       <section class="solution-section">
         <div class="section-copy">
           <p class="label">What it handles</p>
-          <h2>Make the first reply fast, useful, and structured.</h2>
+          <h2>Fast, structured replies.</h2>
         </div>
         <div class="solution-grid">
           <article><span>Buyer inquiries</span><p>Answer property questions, capture location preferences, and ask the qualifying details an agent needs.</p></article>
@@ -96,7 +96,7 @@
       <section class="solution-section">
         <div class="section-copy">
           <p class="label">Buyer questions</p>
-          <h2>Designed around real estate workflows.</h2>
+          <h2>Designed for real estate.</h2>
         </div>
         <div class="answer-grid">
           <article><span>Does it replace the agent?</span><p>No. It protects the first response window and prepares the conversation so the agent can step in with context.</p></article>
@@ -105,7 +105,7 @@
       </section>
       <aside class="mini-cta">
         <div>
-          <h2>Try it on a real listing request.</h2>
+          <h2>Test a listing request.</h2>
           <p>Use your most common buyer or seller question and see how the receptionist qualifies it.</p>
         </div>
         <a class="button" href="./#brief">Book my AI demo</a>

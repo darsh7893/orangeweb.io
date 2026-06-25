@@ -2,7 +2,7 @@
 const cases = {
   clinic: {
     label: "Clinic",
-    title: "Answer patient demand without adding front-desk load.",
+    title: "Patient intake & booking.",
     copy: "Collect reason for visit, urgency, insurance or payment notes, preferred time, and route into booking or a staff callback.",
     points: ["Appointment booking", "Intake collection", "Reminder automation"],
     messages: [
@@ -20,7 +20,7 @@ const cases = {
   },
   realestate: {
     label: "Real estate",
-    title: "Respond to property leads before they call another agent.",
+    title: "Respond to leads instantly.",
     copy: "Qualify budget, timeline, location, financing status, and preferred showing windows while the agent is busy.",
     points: ["Speed-to-lead", "Showing requests", "CRM handoff"],
     messages: [
@@ -38,7 +38,7 @@ const cases = {
   },
   spa: {
     label: "Spa",
-    title: "Turn treatment questions into booked visits.",
+    title: "Convert inquiries to bookings.",
     copy: "Explain services, match guests to treatments, handle package questions, book providers, and rebook after the visit.",
     points: ["Service matching", "Package questions", "Rebooking"],
     messages: [
@@ -56,7 +56,7 @@ const cases = {
   },
   home: {
     label: "Home services",
-    title: "Qualify urgent jobs without interrupting the crew.",
+    title: "Triage and dispatch instantly.",
     copy: "Ask location, issue type, urgency, photos, access details, and route emergencies or estimates to the right person.",
     points: ["Urgency triage", "Estimate requests", "Dispatch notes"],
     messages: [
@@ -74,7 +74,7 @@ const cases = {
   },
   medspa: {
     label: "Medspa",
-    title: "Protect high-ticket consults from slow follow-up.",
+    title: "Book consultations instantly.",
     copy: "Qualify treatment goals, timing, budget readiness, provider preference, and book consults with prep instructions.",
     points: ["Consult booking", "Lead qualification", "Prep reminders"],
     messages: [

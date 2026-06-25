@@ -50,7 +50,7 @@
         <div>
           <p class="breadcrumb"><a href="./">Home</a> / About</p>
           <p class="label">About OrangeWeb.io</p>
-          <h1>Custom AI agents for real business operations.</h1>
+          <h1>AI agents for business operations.</h1>
           <p class="subhead">OrangeWeb.io builds AI agents and automation systems for companies globally. AI receptionist is one solution; the larger work is designing practical AI that removes bottlenecks from sales, support, operations, and follow-up.</p>
         </div>
         <aside class="signal-panel">
@@ -66,7 +66,7 @@
       <section class="solution-section about-section">
         <div class="section-copy">
           <p class="label">What we build</p>
-          <h2 class="about-heading">AI solutions that connect conversations, decisions, and business systems.</h2>
+          <h2 class="about-heading">Connected AI solutions.</h2>
         </div>
         <div class="value-strip">
           <article><b>1</b><span>AI agents</span><p>Receptionists, support agents, intake agents, follow-up agents, and internal assistants.</p></article>
@@ -78,7 +78,7 @@
       <section class="solution-section about-section">
         <div class="section-copy">
           <p class="label">Pain to solution</p>
-          <h2 class="about-heading">We start with the problem, then decide what the AI should do.</h2>
+          <h2 class="about-heading">Problem-first AI design.</h2>
         </div>
         <div class="pain-map">
           <article><span>Leads are not handled fast enough</span><p>An AI agent can respond, qualify, summarize, and route the opportunity.</p></article>

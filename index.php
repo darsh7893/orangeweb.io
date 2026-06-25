@@ -274,7 +274,7 @@
       <section class="feature-section" id="features">
         <div class="section-copy centered">
           <p class="label">What is included</p>
-          <h2>Reception plus follow-through.</h2>
+          <h2>Reception & follow-through.</h2>
           <p>
             OrangeWeb AI is built as an operating workflow, not only a voice bot. It answers, qualifies, routes, records, and follows up using your business logic.
           </p>
@@ -316,7 +316,7 @@
       <section class="use-cases" id="solutions">
         <div class="section-copy centered">
           <p class="label">Client types</p>
-          <h2>Built for each front desk.</h2>
+          <h2>Built for your desk.</h2>
         </div>
 
         <div class="selector" role="tablist" aria-label="Business selector">
@@ -330,7 +330,7 @@
         <div class="case-card">
           <div>
             <p class="label" id="case-label">Clinic</p>
-            <h3 id="case-title">Answer patient demand without adding front-desk load.</h3>
+            <h3 id="case-title">Patient intake & booking.</h3>
             <p id="case-copy">
               Collect reason for visit, urgency, insurance or payment notes, preferred time, and route into booking or a staff callback.
             </p>
@@ -347,7 +347,7 @@
       <section class="workflow" id="workflow">
         <div class="section-copy">
           <p class="label">Done for you</p>
-          <h2>Launch without prompt work.</h2>
+          <h2>Done-for-you launch.</h2>
           <p>We build the first version around your real calls, test the common paths, and tune it with your team before it handles live customers.</p>
         </div>
         <div class="steps">
@@ -372,7 +372,7 @@
       <section class="pricing" id="pricing">
         <div class="section-copy centered">
           <p class="label">Pricing</p>
-          <h2>Less than one missed call.</h2>
+          <h2>Simple pricing.</h2>
           <p>Need more minutes? Add credits as you grow. No forced upgrades, no overage surprises.</p>
         </div>
         <div class="pricing-grid">
@@ -453,7 +453,7 @@
       <section class="faq" id="faq">
         <div class="section-copy centered">
           <p class="label">Buyer questions</p>
-          <h2>What owners ask before launch.</h2>
+          <h2>Common questions.</h2>
         </div>
         <div class="faq-list">
           <details open>

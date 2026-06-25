@@ -65,7 +65,7 @@
         <div>
           <p class="breadcrumb"><a href="./">Home</a> / Home services</p>
           <p class="label">AI receptionist for home services</p>
-          <h1>Qualify urgent jobs while the crew keeps working.</h1>
+          <h1>Qualify urgent jobs instantly.</h1>
           <p class="subhead">OrangeWeb builds receptionist workflows for plumbers, HVAC teams, electricians, cleaners, and contractors that need fast triage, clean dispatch notes, and estimate-ready requests.</p>
           <div class="actions"><a class="button primary" href="./#brief">Book a home services demo</a><a class="button ghost" href="./#how-it-works">Watch workflow</a></div>
         </div>
@@ -76,7 +76,7 @@
         </aside>
       </section>
       <section class="solution-section">
-        <div class="section-copy"><p class="label">What it handles</p><h2>Make every service call easier to route.</h2></div>
+        <div class="section-copy"><p class="label">What it handles</p><h2>Simpler dispatch routing.</h2></div>
         <div class="solution-grid">
           <article><span>Emergency calls</span><p>Ask the critical first questions for leaks, no heat, electrical issues, lockouts, or safety-sensitive calls.</p></article>
           <article><span>Estimate requests</span><p>Collect job type, location, timeline, photos, access notes, and decision-maker details.</p></article>
@@ -84,13 +84,13 @@
         </div>
       </section>
       <section class="solution-section">
-        <div class="section-copy"><p class="label">Buyer questions</p><h2>Built for messy real-world calls.</h2></div>
+        <div class="section-copy"><p class="label">Buyer questions</p><h2>Built for field services.</h2></div>
         <div class="answer-grid">
           <article><span>Can it handle different job types?</span><p>Yes. The script can branch by service line, urgency, geography, technician availability, and callback rules.</p></article>
           <article><span>Can it request photos?</span><p>Yes. The assistant can send a text link for photos and attach that context to the job or callback summary.</p></article>
         </div>
       </section>
-      <aside class="mini-cta"><div><h2>Try an urgent job request.</h2><p>Use the call your team hates missing and see how OrangeWeb AI gathers the details.</p></div><a class="button" href="./#brief">Book my AI demo</a></aside>
+      <aside class="mini-cta"><div><h2>Test an urgent request.</h2><p>Use the call your team hates missing and see how OrangeWeb AI gathers the details.</p></div><a class="button" href="./#brief">Book my AI demo</a></aside>
     </main>
     <?php include 'footer.php'; ?>
   </body>
