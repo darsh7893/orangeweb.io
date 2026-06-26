@@ -17,7 +17,7 @@
     <meta property="og:image" content="https://orangeweb.io/assets/orangeweb-logo-io.png">
     <meta name="twitter:card" content="summary_large_image">
     <title>About OrangeWeb.io | Custom AI Agents and AI Solutions</title>
-    <link rel="stylesheet" href="./styles.css?v=20260625-form2">
+    <link rel="stylesheet" href="./styles.css?v=20260626-contact1">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",

@@ -6,6 +6,11 @@ if (!isset($currentPage)) {
     <footer>
       <div class="footer-brand">
         <img src="./assets/orangeweb-logo-io.png?v=20260625-logo2" alt="OrangeWeb" width="180" height="52">
+        <div class="footer-contact">
+          <a href="mailto:info@orangeweb.io">info@orangeweb.io</a>
+          <span class="separator">&bull;</span>
+          <a href="tel:5069950411">(506) 995-0411</a>
+        </div>
         <span>Copyright 2026 OrangeWeb.io. All rights reserved.</span>
       </div>
       <div class="footer-stack">
