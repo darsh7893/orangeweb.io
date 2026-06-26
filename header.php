@@ -1,5 +1,8 @@
 <?php
-$isHome = basename($_SERVER['SCRIPT_NAME'], '.php') === 'index';
+if (!isset($currentPage)) {
+    $currentPage = basename($_SERVER['SCRIPT_NAME'], '.php');
+}
+$isHome = $currentPage === 'index';
 $homePrefix = $isHome ? '' : './';
 ?>
     <header class="nav">

@@ -1,3 +1,4 @@
+<?php $currentPage = 'about'; ?>
 <!doctype html>
 <html lang="en">
   <head>

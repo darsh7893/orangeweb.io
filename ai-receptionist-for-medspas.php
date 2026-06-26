@@ -1,3 +1,4 @@
+<?php $currentPage = 'ai-receptionist-for-medspas'; ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -67,7 +68,7 @@
           <p class="label">AI receptionist for medspas</p>
           <h1>Book consultations instantly.</h1>
           <p class="subhead">OrangeWeb builds medspa reception workflows that qualify treatment interest, book consults, send prep instructions, and keep high-intent leads moving.</p>
-          <div class="actions"><a class="button primary" href="./#brief">Book a medspa demo</a><a class="button ghost" href="./#how-it-works">Watch workflow</a></div>
+          <div class="actions"><a class="button primary" href="./#brief">Book a medspa demo</a></div>
         </div>
         <aside class="signal-panel">
           <strong>Typical medspa flow</strong>

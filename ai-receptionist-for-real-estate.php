@@ -1,3 +1,4 @@
+<?php $currentPage = 'ai-receptionist-for-real-estate'; ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -69,7 +70,6 @@
           <p class="subhead">OrangeWeb gives agents and teams a receptionist workflow that answers listing questions, qualifies leads, captures showing windows, and sends the agent a useful summary.</p>
           <div class="actions">
             <a class="button primary" href="./#brief">Book a real estate demo</a>
-            <a class="button ghost" href="./#how-it-works">Watch workflow</a>
           </div>
         </div>
         <aside class="signal-panel">

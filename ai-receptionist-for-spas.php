@@ -1,3 +1,4 @@
+<?php $currentPage = 'ai-receptionist-for-spas'; ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -67,7 +68,7 @@
           <p class="label">AI receptionist for spas</p>
           <h1>Book guests seamlessly.</h1>
           <p class="subhead">OrangeWeb builds spa reception workflows that answer treatment questions, match guests to services, book providers, and keep rebooking conversations moving.</p>
-          <div class="actions"><a class="button primary" href="./#brief">Book a spa demo</a><a class="button ghost" href="./#how-it-works">Watch workflow</a></div>
+          <div class="actions"><a class="button primary" href="./#brief">Book a spa demo</a></div>
         </div>
         <aside class="signal-panel">
           <strong>Typical spa flow</strong>

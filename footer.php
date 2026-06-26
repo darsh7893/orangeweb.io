@@ -1,5 +1,7 @@
 <?php
-$currentPage = basename($_SERVER['SCRIPT_NAME'], '.php');
+if (!isset($currentPage)) {
+    $currentPage = basename($_SERVER['SCRIPT_NAME'], '.php');
+}
 ?>
     <footer>
       <div class="footer-brand">

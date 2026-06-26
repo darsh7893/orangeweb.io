@@ -1,3 +1,4 @@
+<?php $currentPage = 'ai-receptionist-for-clinics'; ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -70,7 +71,6 @@
           <p class="subhead">OrangeWeb builds clinic reception workflows that answer common patient requests, collect the right intake details, and move appointments, reminders, and callbacks into the right place.</p>
           <div class="actions">
             <a class="button primary" href="./#brief">Book a clinic demo</a>
-            <a class="button ghost" href="./#how-it-works">Watch workflow</a>
           </div>
         </div>
         <aside class="signal-panel">

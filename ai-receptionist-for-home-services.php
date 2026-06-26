@@ -1,3 +1,4 @@
+<?php $currentPage = 'ai-receptionist-for-home-services'; ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -67,7 +68,7 @@
           <p class="label">AI receptionist for home services</p>
           <h1>Qualify urgent jobs instantly.</h1>
           <p class="subhead">OrangeWeb builds receptionist workflows for plumbers, HVAC teams, electricians, cleaners, and contractors that need fast triage, clean dispatch notes, and estimate-ready requests.</p>
-          <div class="actions"><a class="button primary" href="./#brief">Book a home services demo</a><a class="button ghost" href="./#how-it-works">Watch workflow</a></div>
+          <div class="actions"><a class="button primary" href="./#brief">Book a home services demo</a></div>
         </div>
         <aside class="signal-panel">
           <strong>Typical home service flow</strong>

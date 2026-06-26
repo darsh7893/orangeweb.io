@@ -1,3 +1,4 @@
+<?php $currentPage = 'index'; ?>
 <!doctype html>
 <html lang="en">
   <head>
