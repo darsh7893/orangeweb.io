@@ -377,8 +377,7 @@
           <p>All plans include a 7-day free trial and done-for-you setup. Cancel anytime.</p>
         </div>
         <div class="pricing-grid">
-          <article class="popular">
-            <em>Most popular</em>
+          <article>
             <span>Pro</span>
             <strong>$99<span>/mo</span></strong>
             <p>Built for growing teams that need live booking, transfers, and CRM integration.</p>
@@ -393,7 +392,8 @@
             </ul>
             <a href="#brief">Book Free Demo</a>
           </article>
-          <article>
+          <article class="popular">
+            <em>Most popular</em>
             <span>Scale</span>
             <strong>$199<span>/mo</span></strong>
             <p>For high-volume offices and teams needing advanced routing and integrations.</p>
