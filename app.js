@@ -535,7 +535,13 @@ function drawBellyChat() {
   const cw = bellyCanvas.width;
   const ch = bellyCanvas.height;
 
-  if (currentMessageIndex === -1) {
+  // Resolve message index safely to prevent out-of-bounds error during spin
+  let msgIndex = currentMessageIndex;
+  if (spinActive) {
+    msgIndex = bookingConversation.length - 1;
+  }
+
+  if (msgIndex === -1) {
     // Idle state — show a subtle pulsing "ready" indicator
     const pulse = 0.5 + Math.sin(Date.now() * 0.004) * 0.3;
     bellyCtx.globalAlpha = pulse;
@@ -548,24 +554,15 @@ function drawBellyChat() {
     return;
   }
 
-  const msg = bookingConversation[currentMessageIndex];
+  const msg = bookingConversation[msgIndex];
   const isAi = msg.sender === 'ai';
 
-  if (currentTypingState) {
-    // Typing dots — centered, clean
-    const label = isAi ? 'AI' : 'Customer';
-    bellyCtx.globalAlpha = 0.5;
-    bellyCtx.font = 'bold 28px Inter, sans-serif';
-    bellyCtx.fillStyle = '#ff7a1a';
-    bellyCtx.textAlign = 'center';
-    bellyCtx.fillText(label + ' typing', cw / 2, ch / 2 - 40);
-    bellyCtx.globalAlpha = 1;
-
-    // Pulsing dots
+  if (currentTypingState && !spinActive) {
+    // Pulsing dots (clean UI without label text)
     bellyCtx.fillStyle = '#ff7a1a';
     const dotTime = Date.now() * 0.007;
     for (let i = 0; i < 3; i++) {
-      const dotY = ch / 2 + 20 + Math.sin(dotTime + i * 1.8) * 8;
+      const dotY = ch / 2 + Math.sin(dotTime + i * 1.8) * 8;
       const dotAlpha = 0.5 + Math.sin(dotTime + i * 1.8) * 0.4;
       bellyCtx.globalAlpha = dotAlpha;
       bellyCtx.beginPath();
@@ -575,22 +572,28 @@ function drawBellyChat() {
     bellyCtx.globalAlpha = 1;
   } else {
     // Show the single message with fade-in
-    const alpha = Math.min(bellyFadeAlpha, 1);
+    const alpha = spinActive ? 1 : Math.min(bellyFadeAlpha, 1);
     bellyCtx.globalAlpha = alpha;
 
-    // Speaker label
-    const label = isAi ? '🤖 AI' : '👤 Customer';
-    bellyCtx.font = 'bold 32px Inter, sans-serif';
-    bellyCtx.fillStyle = '#ff7a1a';
-    bellyCtx.textAlign = 'center';
-    bellyCtx.fillText(label, cw / 2, ch / 2 - 70);
+    // AI message has "OrangeDesk" label, Customer has no label
+    if (isAi) {
+      bellyCtx.font = 'bold 30px Inter, sans-serif';
+      bellyCtx.fillStyle = '#ff7a1a';
+      bellyCtx.textAlign = 'center';
+      bellyCtx.fillText('OrangeDesk', cw / 2, ch / 2 - 80);
+    }
 
-    // Message text — big, centered, wrapped
-    bellyCtx.font = 'bold 38px Inter, sans-serif';
+    // Message text — extra large, centered, wrapped
+    bellyCtx.font = 'bold 44px Inter, sans-serif';
     bellyCtx.fillStyle = '#ffffff';
     const lines = wrapText(bellyCtx, msg.text, cw - 60);
-    const lineHeight = 48;
-    const startY = ch / 2 - ((lines.length - 1) * lineHeight) / 2 + 10;
+    const lineHeight = 56;
+    
+    // Shift slightly down if there is a header label, otherwise center vertically
+    const startY = isAi 
+      ? ch / 2 - ((lines.length - 1) * lineHeight) / 2 + 20
+      : ch / 2 - ((lines.length - 1) * lineHeight) / 2;
+
     lines.forEach((line, i) => {
       bellyCtx.fillText(line, cw / 2, startY + i * lineHeight);
     });
