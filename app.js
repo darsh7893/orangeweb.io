@@ -382,8 +382,8 @@ function resize() {
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
-  group.position.set(0, -0.3, 0);
-  group.scale.setScalar(1.22);
+  group.position.set(0, 0.05, 0); // Position robot slightly higher to remove top blank space
+  group.scale.setScalar(1.68);    // Scale robot up so it's bigger and more prominent
 }
 
 // Conversation and Face Emotion configuration
@@ -539,7 +539,7 @@ function drawBellyChat() {
     bellyCtx.globalAlpha = pulse;
     bellyCtx.fillStyle = '#ff7a1a';
     bellyCtx.beginPath();
-    bellyCtx.arc(cw / 2, ch / 2, 6, 0, Math.PI * 2);
+    bellyCtx.arc(cw / 2, ch / 2, 8, 0, Math.PI * 2);
     bellyCtx.fill();
     bellyCtx.globalAlpha = 1;
     bellyTexture.needsUpdate = true;
@@ -553,21 +553,21 @@ function drawBellyChat() {
     // Typing dots — centered, clean
     const label = isAi ? 'AI' : 'Customer';
     bellyCtx.globalAlpha = 0.5;
-    bellyCtx.font = 'bold 22px Inter, sans-serif';
+    bellyCtx.font = 'bold 28px Inter, sans-serif';
     bellyCtx.fillStyle = '#ff7a1a';
     bellyCtx.textAlign = 'center';
-    bellyCtx.fillText(label + ' typing', cw / 2, ch / 2 - 30);
+    bellyCtx.fillText(label + ' typing', cw / 2, ch / 2 - 40);
     bellyCtx.globalAlpha = 1;
 
     // Pulsing dots
     bellyCtx.fillStyle = '#ff7a1a';
     const dotTime = Date.now() * 0.007;
     for (let i = 0; i < 3; i++) {
-      const dotY = ch / 2 + 10 + Math.sin(dotTime + i * 1.8) * 6;
+      const dotY = ch / 2 + 20 + Math.sin(dotTime + i * 1.8) * 8;
       const dotAlpha = 0.5 + Math.sin(dotTime + i * 1.8) * 0.4;
       bellyCtx.globalAlpha = dotAlpha;
       bellyCtx.beginPath();
-      bellyCtx.arc(cw / 2 - 24 + i * 24, dotY, 6, 0, Math.PI * 2);
+      bellyCtx.arc(cw / 2 - 32 + i * 32, dotY, 9, 0, Math.PI * 2);
       bellyCtx.fill();
     }
     bellyCtx.globalAlpha = 1;
@@ -578,17 +578,17 @@ function drawBellyChat() {
 
     // Speaker label
     const label = isAi ? '🤖 AI' : '👤 Customer';
-    bellyCtx.font = 'bold 24px Inter, sans-serif';
+    bellyCtx.font = 'bold 32px Inter, sans-serif';
     bellyCtx.fillStyle = '#ff7a1a';
     bellyCtx.textAlign = 'center';
-    bellyCtx.fillText(label, cw / 2, ch / 2 - 50);
+    bellyCtx.fillText(label, cw / 2, ch / 2 - 70);
 
     // Message text — big, centered, wrapped
-    bellyCtx.font = '600 28px Inter, sans-serif';
+    bellyCtx.font = 'bold 38px Inter, sans-serif';
     bellyCtx.fillStyle = '#ffffff';
     const lines = wrapText(bellyCtx, msg.text, cw - 60);
-    const lineHeight = 36;
-    const startY = ch / 2 - ((lines.length - 1) * lineHeight) / 2;
+    const lineHeight = 48;
+    const startY = ch / 2 - ((lines.length - 1) * lineHeight) / 2 + 10;
     lines.forEach((line, i) => {
       bellyCtx.fillText(line, cw / 2, startY + i * lineHeight);
     });
