@@ -7,13 +7,13 @@
     <meta name="description" content="About OrangeWeb.io: a global custom AI agents and AI solutions company building AI receptionists, workflow automation, lead handling, and business-specific AI systems.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <meta name="theme-color" content="#ff7a1a">
-    <link rel="canonical" href="https://orangeweb.io/about.html">
+    <link rel="canonical" href="https://orangeweb.io/about">
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="OrangeWeb.io">
     <meta property="og:title" content="About OrangeWeb.io | Custom AI Agents and AI Solutions">
     <meta property="og:description" content="OrangeWeb.io serves businesses globally with custom AI agents, AI receptionists, workflow automation, and business-specific AI solutions.">
-    <meta property="og:url" content="https://orangeweb.io/about.html">
+    <meta property="og:url" content="https://orangeweb.io/about">
     <meta property="og:image" content="https://orangeweb.io/assets/orangeweb-logo-io.png">
     <meta name="twitter:card" content="summary_large_image">
     <title>About OrangeWeb.io | Custom AI Agents and AI Solutions</title>
@@ -24,8 +24,8 @@
         "@graph": [
           {
             "@type": "AboutPage",
-            "@id": "https://orangeweb.io/about.html#about",
-            "url": "https://orangeweb.io/about.html",
+            "@id": "https://orangeweb.io/about#about",
+            "url": "https://orangeweb.io/about",
             "name": "About OrangeWeb.io",
             "description": "OrangeWeb.io serves businesses globally with custom AI agents, AI receptionist systems, workflow automation, and AI solutions built around business pain points.",
             "isPartOf": { "@id": "https://orangeweb.io/#website" },
@@ -33,10 +33,10 @@
           },
           {
             "@type": "BreadcrumbList",
-            "@id": "https://orangeweb.io/about.html#breadcrumb",
+            "@id": "https://orangeweb.io/about#breadcrumb",
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://orangeweb.io/" },
-              { "@type": "ListItem", "position": 2, "name": "About", "item": "https://orangeweb.io/about.html" }
+              { "@type": "ListItem", "position": 2, "name": "About", "item": "https://orangeweb.io/about" }
             ]
           }
         ]
