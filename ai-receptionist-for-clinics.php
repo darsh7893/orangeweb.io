@@ -7,13 +7,13 @@
     <meta name="description" content="AI receptionist for clinics that answers patient calls, collects intake details, books appointments, sends reminders, and routes urgent requests to staff.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <meta name="theme-color" content="#ff7a1a">
-    <link rel="canonical" href="https://orangeweb.io/ai-receptionist-for-clinics.html">
+    <link rel="canonical" href="https://orangeweb.io/ai-receptionist-for-clinics">
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="OrangeWeb.io">
     <meta property="og:title" content="AI Receptionist for Clinics | OrangeWeb.io">
     <meta property="og:description" content="Answer patient calls, collect intake context, book visits, and send clean handoffs to your clinic team.">
-    <meta property="og:url" content="https://orangeweb.io/ai-receptionist-for-clinics.html">
+    <meta property="og:url" content="https://orangeweb.io/ai-receptionist-for-clinics">
     <meta property="og:image" content="https://orangeweb.io/assets/orangeweb-logo-io.png">
     <meta name="twitter:card" content="summary_large_image">
     <title>AI Receptionist for Clinics | OrangeWeb.io</title>
@@ -24,24 +24,24 @@
         "@graph": [
           {
             "@type": "Service",
-            "@id": "https://orangeweb.io/ai-receptionist-for-clinics.html#service",
+            "@id": "https://orangeweb.io/ai-receptionist-for-clinics#service",
             "name": "AI receptionist for clinics",
             "serviceType": "AI receptionist and patient intake automation",
             "provider": { "@id": "https://orangeweb.io/#organization" },
-            "url": "https://orangeweb.io/ai-receptionist-for-clinics.html",
+            "url": "https://orangeweb.io/ai-receptionist-for-clinics",
             "description": "AI receptionist workflow for clinics that answers calls, collects patient intake, books appointments, sends reminders, and routes urgent requests."
           },
           {
             "@type": "BreadcrumbList",
-            "@id": "https://orangeweb.io/ai-receptionist-for-clinics.html#breadcrumb",
+            "@id": "https://orangeweb.io/ai-receptionist-for-clinics#breadcrumb",
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://orangeweb.io/" },
-              { "@type": "ListItem", "position": 2, "name": "AI Receptionist for Clinics", "item": "https://orangeweb.io/ai-receptionist-for-clinics.html" }
+              { "@type": "ListItem", "position": 2, "name": "AI Receptionist for Clinics", "item": "https://orangeweb.io/ai-receptionist-for-clinics" }
             ]
           },
           {
             "@type": "FAQPage",
-            "@id": "https://orangeweb.io/ai-receptionist-for-clinics.html#faq",
+            "@id": "https://orangeweb.io/ai-receptionist-for-clinics#faq",
             "mainEntity": [
               {
                 "@type": "Question",
