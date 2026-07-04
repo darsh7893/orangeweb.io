@@ -17,7 +17,7 @@
     <meta property="og:image" content="https://orangeweb.io/assets/orangeweb-logo-io.png">
     <meta name="twitter:card" content="summary_large_image">
     <title>AI Receptionist for Medspas | OrangeWeb.io</title>
-    <link rel="stylesheet" href="./styles.css?v=20260626-contact1">
+    <link rel="stylesheet" href="./styles.css?v=20260704-logo2">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
