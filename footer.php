@@ -21,6 +21,8 @@ if (!isset($currentPage)) {
           <?php if ($currentPage !== 'ai-receptionist-for-spas'): ?><a href="ai-receptionist-for-spas">Spas</a><?php endif; ?>
           <?php if ($currentPage !== 'ai-receptionist-for-home-services'): ?><a href="ai-receptionist-for-home-services">Home services</a><?php endif; ?>
           <?php if ($currentPage !== 'ai-receptionist-for-medspas'): ?><a href="ai-receptionist-for-medspas">Medspas</a><?php endif; ?>
+          <?php if ($currentPage !== 'privacy-policy'): ?><a href="privacy-policy">Privacy Policy</a><?php endif; ?>
+          <?php if ($currentPage !== 'terms-and-conditions'): ?><a href="terms-and-conditions">Terms &amp; Conditions</a><?php endif; ?>
         </nav>
         <nav class="social-links" aria-label="Social media">
           <a href="https://www.linkedin.com/company/orangeweb-io" aria-label="LinkedIn">
