@@ -128,16 +128,16 @@ const orangeMaterial = new THREE.MeshStandardMaterial({
   metalness: 0.2
 });
 
-const glossBlackMaterial = new THREE.MeshStandardMaterial({
-  color: 0x0c0d10, // Premium glossy black
-  roughness: 0.15,
-  metalness: 0.8
+const whiteMaterial = new THREE.MeshStandardMaterial({
+  color: 0xf5f6f8, // Clean premium white
+  roughness: 0.22,
+  metalness: 0.05
 });
 
-const blackMaterial = new THREE.MeshStandardMaterial({
-  color: 0x14161a, // Matte black/charcoal
-  roughness: 0.35,
-  metalness: 0.1
+const softGrayMaterial = new THREE.MeshStandardMaterial({
+  color: 0xe8eaee, // Soft warm gray
+  roughness: 0.3,
+  metalness: 0.05
 });
 
 const metalMaterial = new THREE.MeshStandardMaterial({
@@ -190,18 +190,18 @@ robot.add(headGroup);
 
 // Head Mesh
 const headGeo = new THREE.BoxGeometry(1.2, 0.9, 0.9);
-const headMesh = new THREE.Mesh(headGeo, glossBlackMaterial);
+const headMesh = new THREE.Mesh(headGeo, orangeMaterial);
 headGroup.add(headMesh);
 
 // Face Screen
 const faceGeo = new THREE.BoxGeometry(0.98, 0.68, 0.05);
 const faceMaterials = [
-  blackMaterial, // px
-  blackMaterial, // nx
-  blackMaterial, // py
-  blackMaterial, // ny
-  faceMaterial,  // pz (front) - dynamic canvas texture!
-  blackMaterial  // nz
+  softGrayMaterial, // px
+  softGrayMaterial, // nx
+  softGrayMaterial, // py
+  softGrayMaterial, // ny
+  faceMaterial,     // pz (front) - dynamic canvas texture!
+  softGrayMaterial  // nz
 ];
 const facePlate = new THREE.Mesh(faceGeo, faceMaterials);
 facePlate.position.set(0, 0, 0.44);
@@ -209,12 +209,12 @@ headGroup.add(facePlate);
 
 // Earcups (Headset, directly related to calls and receptionists)
 const earCupGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.12, 32);
-const leftEarCup = new THREE.Mesh(earCupGeo, blackMaterial);
+const leftEarCup = new THREE.Mesh(earCupGeo, whiteMaterial);
 leftEarCup.rotation.z = Math.PI / 2;
 leftEarCup.position.set(-0.62, 0, 0);
 headGroup.add(leftEarCup);
 
-const rightEarCup = new THREE.Mesh(earCupGeo, blackMaterial);
+const rightEarCup = new THREE.Mesh(earCupGeo, whiteMaterial);
 rightEarCup.rotation.z = Math.PI / 2;
 rightEarCup.position.set(0.62, 0, 0);
 headGroup.add(rightEarCup);
@@ -232,7 +232,7 @@ headGroup.add(rightEarAccent);
 
 // Headband
 const headbandGeo = new THREE.TorusGeometry(0.6, 0.04, 8, 32, Math.PI);
-const headband = new THREE.Mesh(headbandGeo, blackMaterial);
+const headband = new THREE.Mesh(headbandGeo, whiteMaterial);
 headband.position.set(0, 0.05, 0);
 headGroup.add(headband);
 
@@ -245,7 +245,7 @@ micArm.position.set(-0.55, -0.18, 0.2);
 headGroup.add(micArm);
 
 const micTipGeo = new THREE.SphereGeometry(0.045, 16, 16);
-const micTip = new THREE.Mesh(micTipGeo, blackMaterial);
+const micTip = new THREE.Mesh(micTipGeo, whiteMaterial);
 micTip.position.set(-0.68, -0.32, 0.35);
 headGroup.add(micTip);
 
@@ -267,18 +267,18 @@ robot.add(bodyGroup);
 
 // Main Body Cylinder
 const bodyGeo = new THREE.CylinderGeometry(0.55, 0.6, 0.8, 32);
-const bodyMesh = new THREE.Mesh(bodyGeo, glossBlackMaterial);
+const bodyMesh = new THREE.Mesh(bodyGeo, orangeMaterial);
 bodyGroup.add(bodyMesh);
 
 // Top/Bottom Body Rounding
 const bodyTopGeo = new THREE.SphereGeometry(0.55, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
-const bodyTop = new THREE.Mesh(bodyTopGeo, glossBlackMaterial);
+const bodyTop = new THREE.Mesh(bodyTopGeo, orangeMaterial);
 bodyTop.rotation.x = -Math.PI / 2;
 bodyTop.position.y = 0.4;
 bodyGroup.add(bodyTop);
 
 const bodyBottomGeo = new THREE.SphereGeometry(0.6, 32, 16, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2);
-const bodyBottom = new THREE.Mesh(bodyBottomGeo, glossBlackMaterial);
+const bodyBottom = new THREE.Mesh(bodyBottomGeo, orangeMaterial);
 bodyBottom.rotation.x = -Math.PI / 2;
 bodyBottom.position.y = -0.4;
 bodyGroup.add(bodyBottom);
@@ -286,23 +286,17 @@ bodyGroup.add(bodyBottom);
 // Belly Plate
 const bellyGeo = new THREE.BoxGeometry(0.5, 0.45, 0.05);
 const bellyMaterials = [
-  blackMaterial, // px
-  blackMaterial, // nx
-  blackMaterial, // py
-  blackMaterial, // ny
-  bellyMaterial, // pz (front) - dynamic belly screen!
-  blackMaterial  // nz
+  softGrayMaterial, // px
+  softGrayMaterial, // nx
+  softGrayMaterial, // py
+  softGrayMaterial, // ny
+  bellyMaterial,    // pz (front) - dynamic belly screen!
+  softGrayMaterial  // nz
 ];
 const bellyPlate = new THREE.Mesh(bellyGeo, bellyMaterials);
 bellyPlate.position.set(0, 0, 0.56);
 bodyGroup.add(bellyPlate);
 
-// Signal Indicator (Chest Light)
-const signalGeo = new THREE.CylinderGeometry(0.1, 0.1, 0.03, 32);
-const signalLogo = new THREE.Mesh(signalGeo, glowOrangeMaterial);
-signalLogo.rotation.x = Math.PI / 2;
-signalLogo.position.set(0, 0, 0.59);
-bodyGroup.add(signalLogo);
 
 // Jet/Thruster
 const jetGeo = new THREE.ConeGeometry(0.25, 0.25, 32);
@@ -332,7 +326,7 @@ leftForearm.position.y = -0.15;
 leftArmGroup.add(leftForearm);
 
 const leftHandGeo = new THREE.SphereGeometry(0.065, 16, 16);
-const leftHand = new THREE.Mesh(leftHandGeo, orangeMaterial);
+const leftHand = new THREE.Mesh(leftHandGeo, whiteMaterial);
 leftHand.position.y = -0.3;
 leftArmGroup.add(leftHand);
 
@@ -348,7 +342,7 @@ const rightForearm = new THREE.Mesh(leftForearmGeo, orangeMaterial);
 rightForearm.position.y = -0.15;
 rightArmGroup.add(rightForearm);
 
-const rightHand = new THREE.Mesh(leftHandGeo, orangeMaterial);
+const rightHand = new THREE.Mesh(leftHandGeo, whiteMaterial);
 rightHand.position.y = -0.3;
 rightArmGroup.add(rightHand);
 
@@ -395,17 +389,17 @@ function resize() {
 // Conversation and Face Emotion configuration
 const bookingConversation = [
   { sender: 'customer', text: "Can I book an appointment today?", emotion: 'listening' },
-  { sender: 'ai', text: "Yes, I have 3:15 PM open. Book it?", emotion: 'thinking', finalEmotion: 'happy' },
+  { sender: 'ai', text: "Yes! I have 3:15 PM open. Book it?", emotion: 'thinking', finalEmotion: 'happy' },
   { sender: 'customer', text: "Yes please!", emotion: 'listening' },
   { sender: 'ai', text: "Done! You're booked for 3:15 PM.", emotion: 'thinking', finalEmotion: 'happy' }
 ];
 
 let currentMessageIndex = -1; // -1 represents initial idle/ready state
-let visibleMessages = [];
 let currentTypingState = false;
-let stateTime = 3.5; // Idle duration before starting
+let stateTime = 3.0; // Idle duration before starting
 let conversationTimer = 0;
 let lastFrameTime = performance.now();
+let bellyFadeAlpha = 0; // smooth fade-in for belly text (0→1)
 
 let currentFaceEmotion = 'neutral';
 let blinkTimer = 0;
@@ -415,19 +409,18 @@ function drawFace(emotion, isBlinkingActive) {
   faceCtx.fillStyle = '#0a0b0d';
   faceCtx.fillRect(0, 0, faceCanvas.width, faceCanvas.height);
 
-  const centerY = 170;
+  const centerY = 155;
   const leftX = 155;
   const rightX = 335;
 
   faceCtx.shadowColor = '#ff7a1a';
-  faceCtx.shadowBlur = 16;
+  faceCtx.shadowBlur = 18;
   faceCtx.fillStyle = '#ff7a1a';
   faceCtx.strokeStyle = '#ff7a1a';
   faceCtx.lineWidth = 14;
   faceCtx.lineCap = 'round';
 
   if (isBlinkingActive) {
-    // Draw flat blinking lines
     faceCtx.beginPath();
     faceCtx.moveTo(leftX - 22, centerY);
     faceCtx.lineTo(leftX + 22, centerY);
@@ -438,7 +431,6 @@ function drawFace(emotion, isBlinkingActive) {
     faceCtx.lineTo(rightX + 22, centerY);
     faceCtx.stroke();
   } else if (emotion === 'happy') {
-    // Curved happy arches
     faceCtx.beginPath();
     faceCtx.arc(leftX, centerY + 8, 22, Math.PI, 0, false);
     faceCtx.stroke();
@@ -446,8 +438,14 @@ function drawFace(emotion, isBlinkingActive) {
     faceCtx.beginPath();
     faceCtx.arc(rightX, centerY + 8, 22, Math.PI, 0, false);
     faceCtx.stroke();
+
+    // Cute smile
+    faceCtx.lineWidth = 6;
+    faceCtx.shadowBlur = 8;
+    faceCtx.beginPath();
+    faceCtx.arc(245, centerY + 50, 36, 0.15, Math.PI - 0.15, false);
+    faceCtx.stroke();
   } else if (emotion === 'thinking') {
-    // Narrow horizontal processing lines
     faceCtx.beginPath();
     faceCtx.moveTo(leftX - 20, centerY);
     faceCtx.lineTo(leftX + 20, centerY);
@@ -458,7 +456,6 @@ function drawFace(emotion, isBlinkingActive) {
     faceCtx.lineTo(rightX + 20, centerY);
     faceCtx.stroke();
   } else if (emotion === 'listening') {
-    // Wide open circles
     faceCtx.beginPath();
     faceCtx.arc(leftX, centerY, 20, 0, Math.PI * 2);
     faceCtx.fill();
@@ -467,7 +464,7 @@ function drawFace(emotion, isBlinkingActive) {
     faceCtx.arc(rightX, centerY, 20, 0, Math.PI * 2);
     faceCtx.fill();
 
-    // Small active audio wave pattern between eyes
+    // Audio wave pattern below eyes
     faceCtx.lineWidth = 3;
     faceCtx.shadowBlur = 4;
     faceCtx.beginPath();
@@ -479,7 +476,6 @@ function drawFace(emotion, isBlinkingActive) {
     }
     faceCtx.stroke();
   } else {
-    // Standard idle eyes
     faceCtx.beginPath();
     faceCtx.arc(leftX, centerY, 22, 0, Math.PI * 2);
     faceCtx.fill();
@@ -523,79 +519,82 @@ function wrapText(ctx, text, maxWidth) {
 }
 
 function drawBellyChat() {
-  bellyCtx.fillStyle = '#0a0b0d';
+  // Dark screen background
+  bellyCtx.fillStyle = '#0c0e12';
   bellyCtx.fillRect(0, 0, bellyCanvas.width, bellyCanvas.height);
 
-  // Top header bar
-  bellyCtx.fillStyle = 'rgba(255, 122, 26, 0.1)';
-  bellyCtx.fillRect(0, 0, 500, 65);
+  // Subtle border glow
+  bellyCtx.strokeStyle = 'rgba(255, 122, 26, 0.25)';
+  bellyCtx.lineWidth = 2;
+  bellyCtx.beginPath();
+  bellyCtx.roundRect(4, 4, 492, 442, 14);
+  bellyCtx.stroke();
 
-  bellyCtx.font = 'bold 17px Inter, sans-serif';
-  bellyCtx.fillStyle = '#ff7a1a';
-  bellyCtx.textAlign = 'center';
-  bellyCtx.fillText('AI RECEPTIONIST ACTIVE', 250, 40);
+  const cw = bellyCanvas.width;
+  const ch = bellyCanvas.height;
 
-  const bubbleWidth = 360;
-  const padding = 16;
-  const margin = 14;
-  let currentY = 85;
+  if (currentMessageIndex === -1) {
+    // Idle state — show a subtle pulsing "ready" indicator
+    const pulse = 0.5 + Math.sin(Date.now() * 0.004) * 0.3;
+    bellyCtx.globalAlpha = pulse;
+    bellyCtx.fillStyle = '#ff7a1a';
+    bellyCtx.beginPath();
+    bellyCtx.arc(cw / 2, ch / 2, 6, 0, Math.PI * 2);
+    bellyCtx.fill();
+    bellyCtx.globalAlpha = 1;
+    bellyTexture.needsUpdate = true;
+    return;
+  }
 
-  visibleMessages.forEach((msg, idx) => {
-    const isLast = idx === visibleMessages.length - 1;
-    const isAi = msg.sender === 'ai';
-    const isTyping = isLast && currentTypingState;
+  const msg = bookingConversation[currentMessageIndex];
+  const isAi = msg.sender === 'ai';
 
-    bellyCtx.font = '16px Inter, sans-serif';
+  if (currentTypingState) {
+    // Typing dots — centered, clean
+    const label = isAi ? 'AI' : 'Customer';
+    bellyCtx.globalAlpha = 0.5;
+    bellyCtx.font = 'bold 22px Inter, sans-serif';
+    bellyCtx.fillStyle = '#ff7a1a';
+    bellyCtx.textAlign = 'center';
+    bellyCtx.fillText(label + ' typing', cw / 2, ch / 2 - 30);
+    bellyCtx.globalAlpha = 1;
 
-    let bubbleBg, textColor, align;
-    if (isAi) {
-      bubbleBg = '#ff7a1a';
-      textColor = '#ffffff';
-      align = 'right';
-    } else {
-      bubbleBg = '#22252a';
-      textColor = '#eceef2';
-      align = 'left';
-    }
-
-    const x = align === 'left' ? 20 : 500 - bubbleWidth - 20;
-
-    if (isTyping) {
-      const bHeight = 46;
-      bellyCtx.fillStyle = bubbleBg;
+    // Pulsing dots
+    bellyCtx.fillStyle = '#ff7a1a';
+    const dotTime = Date.now() * 0.007;
+    for (let i = 0; i < 3; i++) {
+      const dotY = ch / 2 + 10 + Math.sin(dotTime + i * 1.8) * 6;
+      const dotAlpha = 0.5 + Math.sin(dotTime + i * 1.8) * 0.4;
+      bellyCtx.globalAlpha = dotAlpha;
       bellyCtx.beginPath();
-      bellyCtx.roundRect(x, currentY, 90, bHeight, 16);
+      bellyCtx.arc(cw / 2 - 24 + i * 24, dotY, 6, 0, Math.PI * 2);
       bellyCtx.fill();
-
-      // Pulsing chat dots
-      bellyCtx.fillStyle = isAi ? '#ffffff' : '#ff7a1a';
-      const dotTime = Date.now() * 0.008;
-      for (let i = 0; i < 3; i++) {
-        const dotY = currentY + 23 + Math.sin(dotTime + i * 1.5) * 4;
-        bellyCtx.beginPath();
-        bellyCtx.arc(x + 22 + i * 22, dotY, 4.5, 0, Math.PI * 2);
-        bellyCtx.fill();
-      }
-      currentY += bHeight + margin;
-    } else {
-      const lines = wrapText(bellyCtx, msg.text, bubbleWidth - 2 * padding);
-      const bHeight = lines.length * 24 + 2 * padding;
-
-      bellyCtx.fillStyle = bubbleBg;
-      bellyCtx.beginPath();
-      bellyCtx.roundRect(x, currentY, bubbleWidth, bHeight, 18);
-      bellyCtx.fill();
-
-      bellyCtx.fillStyle = textColor;
-      bellyCtx.textAlign = 'left';
-      bellyCtx.font = 'bold 15px Inter, sans-serif';
-      lines.forEach((line, lIdx) => {
-        bellyCtx.fillText(line, x + padding, currentY + padding + 15 + lIdx * 24);
-      });
-
-      currentY += bHeight + margin;
     }
-  });
+    bellyCtx.globalAlpha = 1;
+  } else {
+    // Show the single message with fade-in
+    const alpha = Math.min(bellyFadeAlpha, 1);
+    bellyCtx.globalAlpha = alpha;
+
+    // Speaker label
+    const label = isAi ? '🤖 AI' : '👤 Customer';
+    bellyCtx.font = 'bold 24px Inter, sans-serif';
+    bellyCtx.fillStyle = '#ff7a1a';
+    bellyCtx.textAlign = 'center';
+    bellyCtx.fillText(label, cw / 2, ch / 2 - 50);
+
+    // Message text — big, centered, wrapped
+    bellyCtx.font = '600 28px Inter, sans-serif';
+    bellyCtx.fillStyle = '#ffffff';
+    const lines = wrapText(bellyCtx, msg.text, cw - 60);
+    const lineHeight = 36;
+    const startY = ch / 2 - ((lines.length - 1) * lineHeight) / 2;
+    lines.forEach((line, i) => {
+      bellyCtx.fillText(line, cw / 2, startY + i * lineHeight);
+    });
+
+    bellyCtx.globalAlpha = 1;
+  }
 
   bellyTexture.needsUpdate = true;
 }
@@ -621,9 +620,8 @@ function animate() {
   flame.scale.x = 0.9 + Math.cos(elapsed * 22.0) * 0.08;
   flame.scale.z = 0.9 + Math.cos(elapsed * 22.0) * 0.08;
 
-  // Pulse the antenna tip and logo light
+  // Pulse the antenna tip
   antennaTip.material.emissiveIntensity = 1.3 + Math.sin(elapsed * 8.0) * 0.3;
-  signalLogo.material.emissiveIntensity = 1.3 + Math.cos(elapsed * 8.0) * 0.3;
 
   // 2. Head & body tracking / dragging
   if (!dragging) {
@@ -651,36 +649,29 @@ function animate() {
 
   // Update booking conversation state machine
   conversationTimer += deltaTime;
+  if (!currentTypingState && currentMessageIndex >= 0) {
+    bellyFadeAlpha += deltaTime * 2.5; // smooth fade in
+  }
   if (conversationTimer > stateTime) {
     conversationTimer = 0;
     if (currentMessageIndex === -1) {
-      // Transition from idle -> Customer starts typing message 0
       currentMessageIndex = 0;
       currentTypingState = true;
-      stateTime = 1.2; // typing indicator duration
-      visibleMessages = [ { sender: 'customer', text: '' } ];
+      stateTime = 1.4;
     } else {
       if (currentTypingState) {
-        // Reveal the message text
         currentTypingState = false;
-        const msg = bookingConversation[currentMessageIndex];
-        visibleMessages[visibleMessages.length - 1] = msg;
-        stateTime = 2.4; // display message duration
+        bellyFadeAlpha = 0; // reset fade for new message reveal
+        stateTime = 2.8;
       } else {
-        // Move to next message
         currentMessageIndex++;
         if (currentMessageIndex >= bookingConversation.length) {
-          // Finished conversation loop. Go back to idle.
           currentMessageIndex = -1;
-          visibleMessages = [];
           currentTypingState = false;
-          stateTime = 4.0; // Wait 4s before restarting
+          stateTime = 3.5;
         } else {
-          // Next speaker starts typing
           currentTypingState = true;
-          stateTime = 1.2;
-          const nextMsg = bookingConversation[currentMessageIndex];
-          visibleMessages.push({ sender: nextMsg.sender, text: '' });
+          stateTime = 1.4;
         }
       }
     }
