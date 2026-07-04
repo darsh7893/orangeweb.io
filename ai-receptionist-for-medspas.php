@@ -7,13 +7,13 @@
     <meta name="description" content="AI receptionist for medspas that qualifies consult leads, answers treatment questions, books appointments, sends prep instructions, and follows up.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <meta name="theme-color" content="#ff7a1a">
-    <link rel="canonical" href="https://orangeweb.io/ai-receptionist-for-medspas.html">
+    <link rel="canonical" href="https://orangeweb.io/ai-receptionist-for-medspas">
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="OrangeWeb.io">
     <meta property="og:title" content="AI Receptionist for Medspas | OrangeWeb.io">
     <meta property="og:description" content="Qualify high-intent treatment leads, book consults, send prep instructions, and follow up with clean CRM context.">
-    <meta property="og:url" content="https://orangeweb.io/ai-receptionist-for-medspas.html">
+    <meta property="og:url" content="https://orangeweb.io/ai-receptionist-for-medspas">
     <meta property="og:image" content="https://orangeweb.io/assets/orangeweb-logo-io.png">
     <meta name="twitter:card" content="summary_large_image">
     <title>AI Receptionist for Medspas | OrangeWeb.io</title>
@@ -24,24 +24,24 @@
         "@graph": [
           {
             "@type": "Service",
-            "@id": "https://orangeweb.io/ai-receptionist-for-medspas.html#service",
+            "@id": "https://orangeweb.io/ai-receptionist-for-medspas#service",
             "name": "AI receptionist for medspas",
             "serviceType": "Medspa lead qualification and consult booking automation",
             "provider": { "@id": "https://orangeweb.io/#organization" },
-            "url": "https://orangeweb.io/ai-receptionist-for-medspas.html",
+            "url": "https://orangeweb.io/ai-receptionist-for-medspas",
             "description": "AI receptionist workflow for medspas that qualifies treatment leads, answers approved service questions, books consults, sends prep instructions, and follows up."
           },
           {
             "@type": "BreadcrumbList",
-            "@id": "https://orangeweb.io/ai-receptionist-for-medspas.html#breadcrumb",
+            "@id": "https://orangeweb.io/ai-receptionist-for-medspas#breadcrumb",
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://orangeweb.io/" },
-              { "@type": "ListItem", "position": 2, "name": "AI Receptionist for Medspas", "item": "https://orangeweb.io/ai-receptionist-for-medspas.html" }
+              { "@type": "ListItem", "position": 2, "name": "AI Receptionist for Medspas", "item": "https://orangeweb.io/ai-receptionist-for-medspas" }
             ]
           },
           {
             "@type": "FAQPage",
-            "@id": "https://orangeweb.io/ai-receptionist-for-medspas.html#faq",
+            "@id": "https://orangeweb.io/ai-receptionist-for-medspas#faq",
             "mainEntity": [
               {
                 "@type": "Question",
