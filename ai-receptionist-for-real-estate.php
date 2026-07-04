@@ -7,13 +7,13 @@
     <meta name="description" content="AI receptionist for real estate agents and teams that responds to buyer leads, qualifies showing requests, captures budget and timeline, and updates CRM notes.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <meta name="theme-color" content="#ff7a1a">
-    <link rel="canonical" href="https://orangeweb.io/ai-receptionist-for-real-estate.html">
+    <link rel="canonical" href="https://orangeweb.io/ai-receptionist-for-real-estate">
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="OrangeWeb.io">
     <meta property="og:title" content="AI Receptionist for Real Estate | OrangeWeb.io">
     <meta property="og:description" content="Respond to property leads, qualify showing requests, and send clean CRM handoffs before the lead goes cold.">
-    <meta property="og:url" content="https://orangeweb.io/ai-receptionist-for-real-estate.html">
+    <meta property="og:url" content="https://orangeweb.io/ai-receptionist-for-real-estate">
     <meta property="og:image" content="https://orangeweb.io/assets/orangeweb-logo-io.png">
     <meta name="twitter:card" content="summary_large_image">
     <title>AI Receptionist for Real Estate | OrangeWeb.io</title>
@@ -24,24 +24,24 @@
         "@graph": [
           {
             "@type": "Service",
-            "@id": "https://orangeweb.io/ai-receptionist-for-real-estate.html#service",
+            "@id": "https://orangeweb.io/ai-receptionist-for-real-estate#service",
             "name": "AI receptionist for real estate",
             "serviceType": "Real estate lead response automation",
             "provider": { "@id": "https://orangeweb.io/#organization" },
-            "url": "https://orangeweb.io/ai-receptionist-for-real-estate.html",
+            "url": "https://orangeweb.io/ai-receptionist-for-real-estate",
             "description": "AI receptionist workflow for real estate agents and teams that responds to leads, qualifies buyers and sellers, schedules showings, and updates CRM records."
           },
           {
             "@type": "BreadcrumbList",
-            "@id": "https://orangeweb.io/ai-receptionist-for-real-estate.html#breadcrumb",
+            "@id": "https://orangeweb.io/ai-receptionist-for-real-estate#breadcrumb",
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://orangeweb.io/" },
-              { "@type": "ListItem", "position": 2, "name": "AI Receptionist for Real Estate", "item": "https://orangeweb.io/ai-receptionist-for-real-estate.html" }
+              { "@type": "ListItem", "position": 2, "name": "AI Receptionist for Real Estate", "item": "https://orangeweb.io/ai-receptionist-for-real-estate" }
             ]
           },
           {
             "@type": "FAQPage",
-            "@id": "https://orangeweb.io/ai-receptionist-for-real-estate.html#faq",
+            "@id": "https://orangeweb.io/ai-receptionist-for-real-estate#faq",
             "mainEntity": [
               {
                 "@type": "Question",
