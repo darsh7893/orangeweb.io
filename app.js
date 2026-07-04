@@ -574,6 +574,7 @@ function drawBellyChat() {
     // Show the single message with fade-in
     const alpha = spinActive ? 1 : Math.min(bellyFadeAlpha, 1);
     bellyCtx.globalAlpha = alpha;
+    bellyCtx.textAlign = 'center';
 
     // AI message has "OrangeDesk" label, Customer has no label
     if (isAi) {
