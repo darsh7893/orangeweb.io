@@ -377,20 +377,6 @@
           <p>All plans include a 7-day free trial and done-for-you setup. Cancel anytime.</p>
         </div>
         <div class="pricing-grid">
-          <article>
-            <span>Starter</span>
-            <strong>$49<span>/mo</span></strong>
-            <p>Perfect for small businesses starting with automated reception and lead capture.</p>
-            <ul>
-              <li>Up to 300 minutes</li>
-              <li>24/7 call answering</li>
-              <li>Lead capture &amp; summaries</li>
-              <li>SMS booking link delivery</li>
-              <li>Email notifications</li>
-              <li>1 user</li>
-            </ul>
-            <a href="#brief">Book Free Demo</a>
-          </article>
           <article class="popular">
             <em>Most popular</em>
             <span>Pro</span>
@@ -420,6 +406,20 @@
               <li>HIPAA compliance options</li>
             </ul>
             <a href="#brief">Book Free Demo</a>
+          </article>
+          <article>
+            <span>Custom</span>
+            <strong>Custom<span> pricing</span></strong>
+            <p>For custom minute packages, multi-location needs, or higher-touch support.</p>
+            <ul>
+              <li>Custom minute package</li>
+              <li>Dedicated account rep</li>
+              <li>Powered by Stripe</li>
+              <li>SSL secure</li>
+              <li>HIPAA compliant</li>
+              <li>Cancel anytime</li>
+            </ul>
+            <a href="./about">Contact us</a>
           </article>
         </div>
       </section>
