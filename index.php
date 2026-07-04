@@ -374,79 +374,52 @@
         <div class="section-copy centered">
           <p class="label">Pricing</p>
           <h2>Simple pricing.</h2>
-          <p>Need more minutes? Add credits as you grow. No forced upgrades, no overage surprises.</p>
+          <p>All plans include a 7-day free trial and done-for-you setup. Cancel anytime.</p>
         </div>
         <div class="pricing-grid">
           <article>
-            <span>Essentials</span>
+            <span>Starter</span>
             <strong>$49<span>/mo</span></strong>
-            <p>Everything a small business needs to answer calls, book appointments, and capture leads 24/7.</p>
+            <p>Perfect for small businesses starting with automated reception and lead capture.</p>
             <ul>
-              <li>7-day free trial</li>
-              <li>Done-for-you setup included</li>
               <li>Up to 300 minutes</li>
-              <li>Appointment scheduling: SMS link</li>
-              <li>Lead capture: inbox view</li>
-              <li>Call transfers: 1 number</li>
-              <li>Users: 1 user</li>
+              <li>24/7 call answering</li>
+              <li>Lead capture &amp; summaries</li>
+              <li>SMS booking link delivery</li>
+              <li>Email notifications</li>
+              <li>1 user</li>
             </ul>
-            <a href="#brief">Build my demo</a>
+            <a href="#brief">Book Free Demo</a>
           </article>
           <article class="popular">
             <em>Most popular</em>
             <span>Pro</span>
             <strong>$99<span>/mo</span></strong>
-            <p>Built for growing teams that need more advanced workflows and integrations.</p>
+            <p>Built for growing teams that need live booking, transfers, and CRM integration.</p>
             <ul>
-              <li>7-day free trial</li>
-              <li>Done-for-you setup included</li>
-              <li>Up to 700 minutes</li>
-              <li>Appointment scheduling: live on call</li>
-              <li>Lead capture: send to CRM</li>
-              <li>Call transfers: multiple numbers</li>
-              <li>Two-way SMS</li>
-              <li>Webcalls</li>
-              <li>Users: 3 users</li>
+              <li>Up to 800 minutes</li>
+              <li>Live calendar booking on call</li>
+              <li>Direct CRM &amp; tool syncing</li>
+              <li>Call transfers &amp; routing</li>
+              <li>Custom AI knowledge base</li>
+              <li>Two-way SMS follow-up</li>
+              <li>3 users</li>
             </ul>
-            <a href="#brief">Build my demo</a>
-          </article>
-          <article>
-            <span>Growth</span>
-            <strong>$149<span>/mo</span></strong>
-            <p>For high-volume businesses that need more minutes and every Pro feature included.</p>
-            <ul>
-              <li>7-day free trial</li>
-              <li>Done-for-you setup included</li>
-              <li>Up to 1,000 minutes</li>
-              <li>Everything in Pro</li>
-            </ul>
-            <a href="#brief">Build my demo</a>
+            <a href="#brief">Book Free Demo</a>
           </article>
           <article>
             <span>Scale</span>
-            <strong>$249<span>/mo</span></strong>
-            <p>For businesses with high call volume that need maximum capacity.</p>
+            <strong>$199<span>/mo</span></strong>
+            <p>For high-volume offices and teams needing advanced routing and integrations.</p>
             <ul>
-              <li>7-day free trial</li>
-              <li>Done-for-you setup included</li>
-              <li>Up to 2,000 minutes</li>
+              <li>Up to 1,800 minutes</li>
               <li>Everything in Pro</li>
+              <li>Multi-number tracking &amp; routing</li>
+              <li>Custom integration APIs</li>
+              <li>VIP setup &amp; continuous tuning</li>
+              <li>HIPAA compliance options</li>
             </ul>
-            <a href="#brief">Build my demo</a>
-          </article>
-          <article>
-            <span>Custom</span>
-            <strong>$349+<span>/mo</span></strong>
-            <p>For custom minute packages, multi-location needs, or higher-touch rollout support.</p>
-            <ul>
-              <li>Custom minute package</li>
-              <li>Dedicated account rep</li>
-              <li>Powered by Stripe</li>
-              <li>SSL secure</li>
-              <li>HIPAA compliant</li>
-              <li>Cancel anytime</li>
-            </ul>
-            <a href="./about.html">Contact us</a>
+            <a href="#brief">Book Free Demo</a>
           </article>
         </div>
       </section>

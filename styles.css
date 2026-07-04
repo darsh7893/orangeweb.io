@@ -980,8 +980,8 @@ h3 {
 
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
 .pricing-grid article {
