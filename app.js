@@ -400,6 +400,8 @@ let stateTime = 3.0; // Idle duration before starting
 let conversationTimer = 0;
 let lastFrameTime = performance.now();
 let bellyFadeAlpha = 0; // smooth fade-in for belly text (0→1)
+let spinActive = false; // flag to trigger spin after conversation
+let spinTime = 0;       // track spin duration
 
 let currentFaceEmotion = 'neutral';
 let blinkTimer = 0;
@@ -623,8 +625,30 @@ function animate() {
   // Pulse the antenna tip
   antennaTip.material.emissiveIntensity = 1.3 + Math.sin(elapsed * 8.0) * 0.3;
 
-  // 2. Head & body tracking / dragging
-  if (!dragging) {
+  // 2. Head & body tracking / dragging / spinning
+  if (spinActive) {
+    spinTime += deltaTime;
+    const spinDuration = 0.9; // duration of the spin
+    if (spinTime >= spinDuration) {
+      spinActive = false;
+      spinTime = 0;
+      robot.rotation.y = 0;
+      // Transition to idle state
+      currentMessageIndex = -1;
+      currentTypingState = false;
+      stateTime = 3.5;
+      conversationTimer = 0;
+      bellyFadeAlpha = 0;
+    } else {
+      const progress = spinTime / spinDuration;
+      // Fast horizontal spin: 2 full rotations (4 * PI)
+      robot.rotation.y = progress * Math.PI * 4;
+      
+      // Face straight forward during the spin
+      headGroup.rotation.set(0, 0, 0);
+      bodyGroup.rotation.set(0, 0, 0);
+    }
+  } else if (!dragging) {
     // Lerp smoothly towards mouse target rotation
     headGroup.rotation.y += (targetHeadRotation.y - headGroup.rotation.y) * 0.08;
     headGroup.rotation.x += (targetHeadRotation.x - headGroup.rotation.x) * 0.08;
@@ -648,37 +672,40 @@ function animate() {
   }
 
   // Update booking conversation state machine
-  conversationTimer += deltaTime;
-  if (!currentTypingState && currentMessageIndex >= 0) {
-    bellyFadeAlpha += deltaTime * 2.5; // smooth fade in
-  }
-  if (conversationTimer > stateTime) {
-    conversationTimer = 0;
-    if (currentMessageIndex === -1) {
-      currentMessageIndex = 0;
-      currentTypingState = true;
-      stateTime = 1.4;
-    } else {
-      if (currentTypingState) {
-        currentTypingState = false;
-        bellyFadeAlpha = 0; // reset fade for new message reveal
-        stateTime = 2.8;
+  if (!spinActive) {
+    conversationTimer += deltaTime;
+    if (!currentTypingState && currentMessageIndex >= 0) {
+      bellyFadeAlpha += deltaTime * 2.5; // smooth fade in
+    }
+    if (conversationTimer > stateTime) {
+      conversationTimer = 0;
+      if (currentMessageIndex === -1) {
+        currentMessageIndex = 0;
+        currentTypingState = true;
+        stateTime = 1.4;
       } else {
-        currentMessageIndex++;
-        if (currentMessageIndex >= bookingConversation.length) {
-          currentMessageIndex = -1;
+        if (currentTypingState) {
           currentTypingState = false;
-          stateTime = 3.5;
+          bellyFadeAlpha = 0; // reset fade for new message reveal
+          stateTime = 2.8;
         } else {
-          currentTypingState = true;
-          stateTime = 1.4;
+          currentMessageIndex++;
+          if (currentMessageIndex >= bookingConversation.length) {
+            spinActive = true;
+            spinTime = 0;
+          } else {
+            currentTypingState = true;
+            stateTime = 1.4;
+          }
         }
       }
     }
   }
 
   // Update facial expression emotion based on state
-  if (currentMessageIndex === -1) {
+  if (spinActive) {
+    currentFaceEmotion = 'happy'; // smiling/glowing face during spin!
+  } else if (currentMessageIndex === -1) {
     currentFaceEmotion = 'neutral';
   } else {
     const currentMsg = bookingConversation[currentMessageIndex];
