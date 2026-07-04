@@ -21,7 +21,7 @@
     <meta name="twitter:image" content="https://orangeweb.io/assets/orangeweb-logo-io.png">
     <title>OrangeWeb.io | AI Receptionist for Service Businesses</title>
     <link rel="preconnect" href="https://unpkg.com">
-    <link rel="stylesheet" href="./styles.css?v=20260704-logo2">
+    <link rel="stylesheet" href="./styles.css?v=20260704-logo3">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",

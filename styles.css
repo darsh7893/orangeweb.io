@@ -77,6 +77,7 @@ select {
 .logo img {
   display: block;
   width: 184px;
+  max-width: 100%;
   height: auto;
 }
 
@@ -1585,11 +1586,7 @@ footer img {
 
   .mobile-menu {
     display: block !important;
-    position: fixed;
-    top: 14px;
-    right: auto;
-    left: min(calc(100vw - 60px), 330px);
-    width: 42px;
+    position: relative;
     z-index: 60;
   }
 
