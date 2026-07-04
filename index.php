@@ -123,7 +123,7 @@
           </div>
         </div>
 
-        <div class="product-stage" id="product"><div class="globe-stage" aria-label="Interactive AI Agent"><canvas id="scene" aria-hidden="true"></canvas><p>Move mouse to interact, drag to spin the OrangeWeb AI agent.</p></div></div></section>
+        <div class="product-stage" id="product"><div class="globe-stage" aria-label="Interactive AI Agent"><canvas id="scene" aria-hidden="true"></canvas></div></div></section>
 
       <section class="metrics" aria-label="Receptionist outcomes">
         <article>
