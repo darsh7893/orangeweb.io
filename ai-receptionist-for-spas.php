@@ -7,13 +7,13 @@
     <meta name="description" content="AI receptionist for spas that answers service questions, recommends treatments, books providers, handles rescheduling, and sends reminders.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <meta name="theme-color" content="#ff7a1a">
-    <link rel="canonical" href="https://orangeweb.io/ai-receptionist-for-spas.html">
+    <link rel="canonical" href="https://orangeweb.io/ai-receptionist-for-spas">
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="OrangeWeb.io">
     <meta property="og:title" content="AI Receptionist for Spas | OrangeWeb.io">
     <meta property="og:description" content="Turn treatment questions, missed calls, and rescheduling requests into clean spa bookings.">
-    <meta property="og:url" content="https://orangeweb.io/ai-receptionist-for-spas.html">
+    <meta property="og:url" content="https://orangeweb.io/ai-receptionist-for-spas">
     <meta property="og:image" content="https://orangeweb.io/assets/orangeweb-logo-io.png">
     <meta name="twitter:card" content="summary_large_image">
     <title>AI Receptionist for Spas | OrangeWeb.io</title>
@@ -24,24 +24,24 @@
         "@graph": [
           {
             "@type": "Service",
-            "@id": "https://orangeweb.io/ai-receptionist-for-spas.html#service",
+            "@id": "https://orangeweb.io/ai-receptionist-for-spas#service",
             "name": "AI receptionist for spas",
             "serviceType": "Spa booking and receptionist automation",
             "provider": { "@id": "https://orangeweb.io/#organization" },
-            "url": "https://orangeweb.io/ai-receptionist-for-spas.html",
+            "url": "https://orangeweb.io/ai-receptionist-for-spas",
             "description": "AI receptionist workflow for spas that answers treatment questions, books providers, handles package questions, reschedules guests, and sends follow-up reminders."
           },
           {
             "@type": "BreadcrumbList",
-            "@id": "https://orangeweb.io/ai-receptionist-for-spas.html#breadcrumb",
+            "@id": "https://orangeweb.io/ai-receptionist-for-spas#breadcrumb",
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://orangeweb.io/" },
-              { "@type": "ListItem", "position": 2, "name": "AI Receptionist for Spas", "item": "https://orangeweb.io/ai-receptionist-for-spas.html" }
+              { "@type": "ListItem", "position": 2, "name": "AI Receptionist for Spas", "item": "https://orangeweb.io/ai-receptionist-for-spas" }
             ]
           },
           {
             "@type": "FAQPage",
-            "@id": "https://orangeweb.io/ai-receptionist-for-spas.html#faq",
+            "@id": "https://orangeweb.io/ai-receptionist-for-spas#faq",
             "mainEntity": [
               {
                 "@type": "Question",
