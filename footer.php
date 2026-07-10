@@ -5,7 +5,7 @@ if (!isset($currentPage)) {
 ?>
     <footer>
       <div class="footer-brand">
-        <img src="./assets/orangeweb-logo-io.png?v=20260626-logo3" alt="OrangeWeb" width="180" height="52">
+        <img src="./assets/orangeweb-logo-io.png?v=20260710" alt="OrangeWeb" width="180" height="52">
         <div class="footer-contact">
           <a href="mailto:info@orangeweb.io">info@orangeweb.io</a>
           <span class="separator">&bull;</span>
