@@ -31,7 +31,10 @@ if (!isset($currentPage)) {
           <a href="https://x.com/orangeweb_io" aria-label="X">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 4 11.7 16H20L8.3 4H4Zm16 0-7.2 8.1M11.2 14.3 4 20"></path></svg>
           </a>
-          <a href="https://www.instagram.com/orangeweb.io" aria-label="Instagram">
+          <a href="https://www.facebook.com/share/1Dvfy2s1kb/?mibextid=wwXIfr" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h2V4h-2.8C10.4 4 9 5.7 9 8.6V11H7v4h2v5h4v-5h2.8l.5-4H13V8.7c0-.5.3-.7 1-.7Z"></path></svg>
+          </a>
+          <a href="https://www.instagram.com/orangeweb.io_?igsh=MXZvdHVwNTA2ZHZtcw%3D%3D&utm_source=qr" aria-label="Instagram">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"></rect><circle cx="12" cy="12" r="3.4"></circle><path d="M17.5 6.8v.1"></path></svg>
           </a>
         </nav>
