@@ -21,7 +21,7 @@
     <meta name="twitter:image" content="https://orangeweb.io/assets/orangeweb-logo-io.png">
     <title>OrangeWeb.io | AI Receptionist for Service Businesses</title>
     <link rel="preconnect" href="https://unpkg.com">
-    <link rel="stylesheet" href="./styles.css?v=20260704-mobilefix">
+    <link rel="stylesheet" href="./styles.css?v=20260721-livecall">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -119,11 +119,12 @@
             A calm, always-on front desk that qualifies requests, books appointments, and follows up without adding pressure to your team.
           </p>
           <div class="actions">
-            <a class="button primary" href="#how-it-works">Watch how it works</a>
+            <a class="button primary" href="#product">Press the robot to test call</a>
+            <a class="button ghost" href="#how-it-works">Watch how it works</a>
           </div>
         </div>
 
-        <div class="product-stage" id="product"><div class="globe-stage" aria-label="Interactive AI Agent"><canvas id="scene" aria-hidden="true"></canvas></div></div></section>
+        <div class="product-stage" id="product"><div class="globe-stage" aria-label="Interactive AI Agent with live test call button"><canvas id="scene" aria-label="Press the robot belly button to start a live AI test call"></canvas><p class="robot-live-hint">Press the orange button on the robot belly to talk live.</p></div></div></section>
 
       <section class="metrics" aria-label="Receptionist outcomes">
         <article>

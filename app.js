@@ -396,12 +396,24 @@ const bookingConversation = [
 
 let currentMessageIndex = -1; // -1 represents initial idle/ready state
 let currentTypingState = false;
-let stateTime = 3.0; // Idle duration before starting
+let stateTime = Number.POSITIVE_INFINITY; // Wait for belly button instead of auto-starting
 let conversationTimer = 0;
 let lastFrameTime = performance.now();
 let bellyFadeAlpha = 0; // smooth fade-in for belly text (0→1)
 let spinActive = false; // flag to trigger spin after conversation
 let spinTime = 0;       // track spin duration
+
+const HERO_TEST_CALL_ENDPOINT = 'https://voice.orangeweb.io/api/public_test_call.php';
+let liveCallState = 'idle';
+let liveCallStatus = 'Tap the belly to test call';
+let liveCallRoom = null;
+let liveCallId = null;
+let liveCallStartTime = 0;
+let liveCallTimer = null;
+let liveCallAudioElements = [];
+let liveCallTranscript = [];
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
 
 let currentFaceEmotion = 'neutral';
 let blinkTimer = 0;
@@ -521,87 +533,108 @@ function wrapText(ctx, text, maxWidth) {
 }
 
 function drawBellyChat() {
-  // Dark screen background
   bellyCtx.fillStyle = '#0c0e12';
   bellyCtx.fillRect(0, 0, bellyCanvas.width, bellyCanvas.height);
 
-  // Subtle border glow
-  bellyCtx.strokeStyle = 'rgba(255, 122, 26, 0.25)';
-  bellyCtx.lineWidth = 2;
+  bellyCtx.strokeStyle = liveCallState === 'active' ? 'rgba(34, 197, 94, 0.72)' : 'rgba(255, 122, 26, 0.32)';
+  bellyCtx.lineWidth = 3;
   bellyCtx.beginPath();
-  bellyCtx.roundRect(4, 4, 492, 442, 14);
+  bellyCtx.roundRect(4, 4, 492, 442, 18);
   bellyCtx.stroke();
 
   const cw = bellyCanvas.width;
   const ch = bellyCanvas.height;
 
-  // Resolve message index safely to prevent out-of-bounds error during spin
-  let msgIndex = currentMessageIndex;
-  if (spinActive) {
-    msgIndex = bookingConversation.length - 1;
-  }
-
-  if (msgIndex === -1) {
-    // Idle state — show a subtle pulsing "ready" indicator
-    const pulse = 0.5 + Math.sin(Date.now() * 0.004) * 0.3;
-    bellyCtx.globalAlpha = pulse;
-    bellyCtx.fillStyle = '#ff7a1a';
+  if (liveCallState === 'idle' || liveCallState === 'error' || liveCallState === 'ended') {
+    const pulse = 0.94 + Math.sin(Date.now() * 0.006) * 0.06;
+    const grd = bellyCtx.createLinearGradient(120, 118, 380, 330);
+    grd.addColorStop(0, '#ff9a3d');
+    grd.addColorStop(1, '#ff6b00');
+    bellyCtx.save();
+    bellyCtx.translate(cw / 2, ch / 2 - 10);
+    bellyCtx.scale(pulse, pulse);
+    bellyCtx.shadowColor = 'rgba(255,122,26,.62)';
+    bellyCtx.shadowBlur = 24;
+    bellyCtx.fillStyle = grd;
     bellyCtx.beginPath();
-    bellyCtx.arc(cw / 2, ch / 2, 8, 0, Math.PI * 2);
+    bellyCtx.roundRect(-130, -82, 260, 164, 46);
     bellyCtx.fill();
-    bellyCtx.globalAlpha = 1;
+    bellyCtx.shadowBlur = 0;
+    bellyCtx.fillStyle = '#fff';
+    bellyCtx.font = 'bold 34px Inter, sans-serif';
+    bellyCtx.textAlign = 'center';
+    bellyCtx.fillText('CALL', 0, -10);
+    bellyCtx.font = 'bold 22px Inter, sans-serif';
+    bellyCtx.fillText('TEST AI', 0, 28);
+    bellyCtx.restore();
+
+    bellyCtx.fillStyle = liveCallState === 'error' ? '#ffb4a8' : '#ffffff';
+    bellyCtx.font = 'bold 25px Inter, sans-serif';
+    bellyCtx.textAlign = 'center';
+    wrapText(bellyCtx, liveCallStatus, cw - 60).slice(0, 2).forEach((line, i) => {
+      bellyCtx.fillText(line, cw / 2, ch - 54 + i * 30);
+    });
     bellyTexture.needsUpdate = true;
     return;
   }
 
-  const msg = bookingConversation[msgIndex];
-  const isAi = msg.sender === 'ai';
-
-  if (currentTypingState && !spinActive) {
-    // Pulsing dots (clean UI without label text)
+  if (liveCallState === 'connecting') {
     bellyCtx.fillStyle = '#ff7a1a';
     const dotTime = Date.now() * 0.007;
     for (let i = 0; i < 3; i++) {
-      const dotY = ch / 2 + Math.sin(dotTime + i * 1.8) * 8;
-      const dotAlpha = 0.5 + Math.sin(dotTime + i * 1.8) * 0.4;
-      bellyCtx.globalAlpha = dotAlpha;
+      const dotY = ch / 2 + Math.sin(dotTime + i * 1.8) * 10;
+      bellyCtx.globalAlpha = 0.5 + Math.sin(dotTime + i * 1.8) * 0.4;
       bellyCtx.beginPath();
-      bellyCtx.arc(cw / 2 - 32 + i * 32, dotY, 9, 0, Math.PI * 2);
+      bellyCtx.arc(cw / 2 - 38 + i * 38, dotY, 11, 0, Math.PI * 2);
       bellyCtx.fill();
     }
     bellyCtx.globalAlpha = 1;
-  } else {
-    // Show the single message with fade-in
-    const alpha = spinActive ? 1 : Math.min(bellyFadeAlpha, 1);
-    bellyCtx.globalAlpha = alpha;
-    bellyCtx.textAlign = 'center';
-
-    // AI message has "OrangeDesk" label, Customer has no label
-    if (isAi) {
-      bellyCtx.font = 'bold 30px Inter, sans-serif';
-      bellyCtx.fillStyle = '#ff7a1a';
-      bellyCtx.textAlign = 'center';
-      bellyCtx.fillText('OrangeDesk', cw / 2, ch / 2 - 80);
-    }
-
-    // Message text — extra large, centered, wrapped
-    bellyCtx.font = 'bold 44px Inter, sans-serif';
     bellyCtx.fillStyle = '#ffffff';
-    const lines = wrapText(bellyCtx, msg.text, cw - 60);
-    const lineHeight = 56;
-    
-    // Shift slightly down if there is a header label, otherwise center vertically
-    const startY = isAi 
-      ? ch / 2 - ((lines.length - 1) * lineHeight) / 2 + 20
-      : ch / 2 - ((lines.length - 1) * lineHeight) / 2;
-
-    lines.forEach((line, i) => {
-      bellyCtx.fillText(line, cw / 2, startY + i * lineHeight);
-    });
-
-    bellyCtx.globalAlpha = 1;
+    bellyCtx.font = 'bold 28px Inter, sans-serif';
+    bellyCtx.textAlign = 'center';
+    bellyCtx.fillText(liveCallStatus, cw / 2, ch / 2 + 70);
+    bellyTexture.needsUpdate = true;
+    return;
   }
 
+  bellyCtx.fillStyle = '#22c55e';
+  bellyCtx.beginPath();
+  bellyCtx.arc(42, 38, 10, 0, Math.PI * 2);
+  bellyCtx.fill();
+  bellyCtx.fillStyle = '#ffffff';
+  bellyCtx.font = 'bold 28px Inter, sans-serif';
+  bellyCtx.textAlign = 'left';
+  bellyCtx.fillText('Live AI Call', 65, 48);
+
+  bellyCtx.font = '22px Inter, sans-serif';
+  bellyCtx.fillStyle = '#d6e0f5';
+  const latest = liveCallTranscript.slice(-3);
+  if (latest.length === 0) {
+    bellyCtx.textAlign = 'center';
+    bellyCtx.fillText('Speak now — the AI can hear you', cw / 2, ch / 2 + 8);
+  } else {
+    let y = 118;
+    latest.forEach((msg) => {
+      bellyCtx.fillStyle = msg.role === 'agent' ? '#ffb16f' : '#ffffff';
+      bellyCtx.font = 'bold 20px Inter, sans-serif';
+      bellyCtx.fillText(msg.role === 'agent' ? 'AI' : 'You', 34, y);
+      bellyCtx.font = '21px Inter, sans-serif';
+      bellyCtx.fillStyle = '#ffffff';
+      wrapText(bellyCtx, msg.text, cw - 86).slice(0, 2).forEach((line, i) => {
+        bellyCtx.fillText(line, 34, y + 28 + i * 25);
+      });
+      y += 84;
+    });
+  }
+
+  bellyCtx.fillStyle = '#ff7a1a';
+  bellyCtx.beginPath();
+  bellyCtx.roundRect(122, ch - 72, 256, 50, 25);
+  bellyCtx.fill();
+  bellyCtx.fillStyle = '#fff';
+  bellyCtx.font = 'bold 22px Inter, sans-serif';
+  bellyCtx.textAlign = 'center';
+  bellyCtx.fillText('Tap to end call', cw / 2, ch - 39);
   bellyTexture.needsUpdate = true;
 }
 
@@ -614,12 +647,19 @@ function animate() {
   // 1. Gently bob the robot up and down (hover effect)
   robot.position.y = 0.2 + Math.sin(elapsed * 2.5) * 0.08;
 
-  // Gentle floating motion for the arms
-  leftArmGroup.position.y = -0.3 + Math.sin(elapsed * 3.0) * 0.035;
-  leftArmGroup.rotation.z = Math.sin(elapsed * 2.0) * 0.05;
+  // Expressive hand gestures while the robot is talking or in a live call
+  const talkingGesture = liveCallState === 'active' || currentTypingState || (currentMessageIndex >= 0 && bookingConversation[currentMessageIndex]?.sender === 'ai');
+  const gestureSpeed = talkingGesture ? 8.5 : 3.0;
+  const gestureLift = talkingGesture ? 0.12 : 0.035;
+  leftArmGroup.position.y = -0.3 + Math.sin(elapsed * gestureSpeed) * gestureLift;
+  leftArmGroup.rotation.z = (talkingGesture ? -0.45 : 0) + Math.sin(elapsed * (talkingGesture ? 7.4 : 2.0)) * (talkingGesture ? 0.42 : 0.05);
+  leftForearm.rotation.z = Math.sin(elapsed * 9.0) * (talkingGesture ? 0.55 : 0.08);
+  leftHand.scale.setScalar(1 + Math.sin(elapsed * 10.0) * (talkingGesture ? 0.18 : 0.04));
 
-  rightArmGroup.position.y = -0.3 + Math.sin(elapsed * 3.0 + Math.PI) * 0.035;
-  rightArmGroup.rotation.z = Math.sin(elapsed * 2.0 + Math.PI) * 0.05;
+  rightArmGroup.position.y = -0.3 + Math.sin(elapsed * gestureSpeed + Math.PI) * gestureLift;
+  rightArmGroup.rotation.z = (talkingGesture ? 0.45 : 0) + Math.sin(elapsed * (talkingGesture ? 7.1 : 2.0) + Math.PI) * (talkingGesture ? 0.42 : 0.05);
+  rightForearm.rotation.z = Math.sin(elapsed * 9.2 + Math.PI) * (talkingGesture ? 0.55 : 0.08);
+  rightHand.scale.setScalar(1 + Math.sin(elapsed * 10.0 + Math.PI) * (talkingGesture ? 0.18 : 0.04));
 
   // Flicker the jet thruster flame
   flame.scale.y = 0.85 + Math.sin(elapsed * 28.0) * 0.15;
@@ -675,8 +715,8 @@ function animate() {
     bodyGroup.rotation.x += (0 - bodyGroup.rotation.x) * 0.1;
   }
 
-  // Update booking conversation state machine
-  if (!spinActive) {
+  // Update booking conversation state machine only after explicitly started
+  if (!spinActive && currentMessageIndex !== -1) {
     conversationTimer += deltaTime;
     if (!currentTypingState && currentMessageIndex >= 0) {
       bellyFadeAlpha += deltaTime * 2.5; // smooth fade in
@@ -917,6 +957,137 @@ if (briefForm) {
     );
   });
 }
+
+function setLiveCallState(state, status) {
+  liveCallState = state;
+  if (status) liveCallStatus = status;
+}
+
+function isAgentParticipant(participant) {
+  const id = String(participant?.identity || participant?.name || '').toLowerCase();
+  return id.includes('agent') || id.includes('worker') || id.includes('outbound') || id.includes('ai');
+}
+
+async function requestHeroTestCall() {
+  if (liveCallState === 'connecting') return;
+  if (liveCallState === 'active') {
+    await endHeroTestCall();
+    return;
+  }
+  if (!window.LivekitClient) {
+    setLiveCallState('error', 'LiveKit SDK failed to load');
+    return;
+  }
+
+  setLiveCallState('connecting', 'Requesting microphone...');
+  liveCallTranscript = [];
+
+  try {
+    if (liveCallRoom) {
+      try { liveCallRoom.disconnect(); } catch (e) {}
+      liveCallRoom = null;
+    }
+
+    const res = await fetch(HERO_TEST_CALL_ENDPOINT + '?action=start', {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'omit',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ source: 'orangeweb-homepage-robot' })
+    });
+    const payload = await res.json().catch(() => null);
+    if (!res.ok || !payload?.success) throw new Error(payload?.error || 'Could not start test call');
+
+    const { token, livekit_url, call_id } = payload.data;
+    liveCallId = call_id;
+    setLiveCallState('connecting', 'Connecting AI room...');
+
+    const LK = window.LivekitClient;
+    liveCallRoom = new LK.Room({
+      adaptiveStream: true,
+      dynacast: true,
+      audioCaptureDefaults: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+    });
+
+    liveCallRoom.on(LK.RoomEvent.TrackSubscribed, (track) => {
+      if (track.kind !== 'audio') return;
+      const audioEl = track.attach();
+      audioEl.autoplay = true;
+      audioEl.playsInline = true;
+      audioEl.style.display = 'none';
+      document.body.appendChild(audioEl);
+      liveCallAudioElements.push(audioEl);
+      audioEl.play().catch(() => setLiveCallState('active', 'Tap page if audio is blocked'));
+    });
+
+    liveCallRoom.on(LK.RoomEvent.TranscriptionReceived, (segments, participant) => {
+      for (const seg of segments || []) {
+        const text = seg.text?.trim();
+        if (!text || seg.final === false) continue;
+        const role = isAgentParticipant(participant) ? 'agent' : 'user';
+        liveCallTranscript.push({ role, text });
+        liveCallTranscript = liveCallTranscript.slice(-8);
+      }
+    });
+
+    liveCallRoom.on(LK.RoomEvent.ParticipantConnected, (participant) => {
+      if (isAgentParticipant(participant)) setLiveCallState('active', 'AI connected — speak now');
+    });
+    liveCallRoom.on(LK.RoomEvent.ParticipantDisconnected, (participant) => {
+      if (isAgentParticipant(participant)) setLiveCallState('ended', 'AI left — tap to call again');
+    });
+    liveCallRoom.on(LK.RoomEvent.Disconnected, () => {
+      if (liveCallState !== 'ended') setLiveCallState('ended', 'Call ended — tap to retry');
+    });
+
+    await liveCallRoom.connect(livekit_url, token);
+    await liveCallRoom.localParticipant.setMicrophoneEnabled(true);
+    setLiveCallState('active', 'Speak now — AI is listening');
+    liveCallStartTime = Date.now();
+    clearInterval(liveCallTimer);
+    liveCallTimer = setInterval(() => {
+      if (liveCallState === 'active') {
+        const seconds = Math.floor((Date.now() - liveCallStartTime) / 1000);
+        liveCallStatus = `Live ${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+      }
+    }, 1000);
+  } catch (err) {
+    console.error('[HeroTestCall]', err);
+    setLiveCallState('error', err.message || 'Call failed — tap to retry');
+  }
+}
+
+async function endHeroTestCall() {
+  clearInterval(liveCallTimer);
+  if (liveCallRoom) {
+    try { liveCallRoom.disconnect(); } catch (e) {}
+    liveCallRoom = null;
+  }
+  liveCallAudioElements.forEach((el) => { try { el.remove(); } catch(e) {} });
+  liveCallAudioElements = [];
+  if (liveCallId) {
+    try {
+      await fetch(HERO_TEST_CALL_ENDPOINT + '?action=end', {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'omit',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ call_id: liveCallId })
+      });
+    } catch (e) {}
+    liveCallId = null;
+  }
+  setLiveCallState('ended', 'Call ended — tap to call again');
+}
+
+canvas.addEventListener('click', (event) => {
+  const rect = canvas.getBoundingClientRect();
+  pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+  raycaster.setFromCamera(pointer, camera);
+  const hits = raycaster.intersectObject(bellyPlate, true);
+  if (hits.length) requestHeroTestCall();
+});
 
 resize();
 animate();
