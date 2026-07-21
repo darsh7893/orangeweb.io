@@ -58,5 +58,5 @@ if (!isset($currentPage)) {
     <?php if ($currentPage === 'index'): ?>
     <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/livekit-client/dist/livekit-client.umd.min.js"></script>
-    <script src="./app.js?v=20260721-livecall"></script>
+    <script src="./app.js?v=20260721-callsection"></script>
     <?php endif; ?>

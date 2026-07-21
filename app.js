@@ -396,7 +396,7 @@ const bookingConversation = [
 
 let currentMessageIndex = -1; // -1 represents initial idle/ready state
 let currentTypingState = false;
-let stateTime = Number.POSITIVE_INFINITY; // Wait for belly button instead of auto-starting
+let stateTime = 3.0; // Idle duration before starting
 let conversationTimer = 0;
 let lastFrameTime = performance.now();
 let bellyFadeAlpha = 0; // smooth fade-in for belly text (0→1)
@@ -405,15 +405,13 @@ let spinTime = 0;       // track spin duration
 
 const HERO_TEST_CALL_ENDPOINT = 'https://voice.orangeweb.io/api/public_test_call.php';
 let liveCallState = 'idle';
-let liveCallStatus = 'Tap the belly to test call';
+let liveCallStatus = 'Ready to start';
 let liveCallRoom = null;
 let liveCallId = null;
 let liveCallStartTime = 0;
 let liveCallTimer = null;
 let liveCallAudioElements = [];
 let liveCallTranscript = [];
-const raycaster = new THREE.Raycaster();
-const pointer = new THREE.Vector2();
 
 let currentFaceEmotion = 'neutral';
 let blinkTimer = 0;
@@ -533,108 +531,87 @@ function wrapText(ctx, text, maxWidth) {
 }
 
 function drawBellyChat() {
+  // Dark screen background
   bellyCtx.fillStyle = '#0c0e12';
   bellyCtx.fillRect(0, 0, bellyCanvas.width, bellyCanvas.height);
 
-  bellyCtx.strokeStyle = liveCallState === 'active' ? 'rgba(34, 197, 94, 0.72)' : 'rgba(255, 122, 26, 0.32)';
-  bellyCtx.lineWidth = 3;
+  // Subtle border glow
+  bellyCtx.strokeStyle = 'rgba(255, 122, 26, 0.25)';
+  bellyCtx.lineWidth = 2;
   bellyCtx.beginPath();
-  bellyCtx.roundRect(4, 4, 492, 442, 18);
+  bellyCtx.roundRect(4, 4, 492, 442, 14);
   bellyCtx.stroke();
 
   const cw = bellyCanvas.width;
   const ch = bellyCanvas.height;
 
-  if (liveCallState === 'idle' || liveCallState === 'error' || liveCallState === 'ended') {
-    const pulse = 0.94 + Math.sin(Date.now() * 0.006) * 0.06;
-    const grd = bellyCtx.createLinearGradient(120, 118, 380, 330);
-    grd.addColorStop(0, '#ff9a3d');
-    grd.addColorStop(1, '#ff6b00');
-    bellyCtx.save();
-    bellyCtx.translate(cw / 2, ch / 2 - 10);
-    bellyCtx.scale(pulse, pulse);
-    bellyCtx.shadowColor = 'rgba(255,122,26,.62)';
-    bellyCtx.shadowBlur = 24;
-    bellyCtx.fillStyle = grd;
-    bellyCtx.beginPath();
-    bellyCtx.roundRect(-130, -82, 260, 164, 46);
-    bellyCtx.fill();
-    bellyCtx.shadowBlur = 0;
-    bellyCtx.fillStyle = '#fff';
-    bellyCtx.font = 'bold 34px Inter, sans-serif';
-    bellyCtx.textAlign = 'center';
-    bellyCtx.fillText('CALL', 0, -10);
-    bellyCtx.font = 'bold 22px Inter, sans-serif';
-    bellyCtx.fillText('TEST AI', 0, 28);
-    bellyCtx.restore();
+  // Resolve message index safely to prevent out-of-bounds error during spin
+  let msgIndex = currentMessageIndex;
+  if (spinActive) {
+    msgIndex = bookingConversation.length - 1;
+  }
 
-    bellyCtx.fillStyle = liveCallState === 'error' ? '#ffb4a8' : '#ffffff';
-    bellyCtx.font = 'bold 25px Inter, sans-serif';
-    bellyCtx.textAlign = 'center';
-    wrapText(bellyCtx, liveCallStatus, cw - 60).slice(0, 2).forEach((line, i) => {
-      bellyCtx.fillText(line, cw / 2, ch - 54 + i * 30);
-    });
+  if (msgIndex === -1) {
+    // Idle state — show a subtle pulsing "ready" indicator
+    const pulse = 0.5 + Math.sin(Date.now() * 0.004) * 0.3;
+    bellyCtx.globalAlpha = pulse;
+    bellyCtx.fillStyle = '#ff7a1a';
+    bellyCtx.beginPath();
+    bellyCtx.arc(cw / 2, ch / 2, 8, 0, Math.PI * 2);
+    bellyCtx.fill();
+    bellyCtx.globalAlpha = 1;
     bellyTexture.needsUpdate = true;
     return;
   }
 
-  if (liveCallState === 'connecting') {
+  const msg = bookingConversation[msgIndex];
+  const isAi = msg.sender === 'ai';
+
+  if (currentTypingState && !spinActive) {
+    // Pulsing dots (clean UI without label text)
     bellyCtx.fillStyle = '#ff7a1a';
     const dotTime = Date.now() * 0.007;
     for (let i = 0; i < 3; i++) {
-      const dotY = ch / 2 + Math.sin(dotTime + i * 1.8) * 10;
-      bellyCtx.globalAlpha = 0.5 + Math.sin(dotTime + i * 1.8) * 0.4;
+      const dotY = ch / 2 + Math.sin(dotTime + i * 1.8) * 8;
+      const dotAlpha = 0.5 + Math.sin(dotTime + i * 1.8) * 0.4;
+      bellyCtx.globalAlpha = dotAlpha;
       bellyCtx.beginPath();
-      bellyCtx.arc(cw / 2 - 38 + i * 38, dotY, 11, 0, Math.PI * 2);
+      bellyCtx.arc(cw / 2 - 32 + i * 32, dotY, 9, 0, Math.PI * 2);
       bellyCtx.fill();
     }
     bellyCtx.globalAlpha = 1;
-    bellyCtx.fillStyle = '#ffffff';
-    bellyCtx.font = 'bold 28px Inter, sans-serif';
-    bellyCtx.textAlign = 'center';
-    bellyCtx.fillText(liveCallStatus, cw / 2, ch / 2 + 70);
-    bellyTexture.needsUpdate = true;
-    return;
-  }
-
-  bellyCtx.fillStyle = '#22c55e';
-  bellyCtx.beginPath();
-  bellyCtx.arc(42, 38, 10, 0, Math.PI * 2);
-  bellyCtx.fill();
-  bellyCtx.fillStyle = '#ffffff';
-  bellyCtx.font = 'bold 28px Inter, sans-serif';
-  bellyCtx.textAlign = 'left';
-  bellyCtx.fillText('Live AI Call', 65, 48);
-
-  bellyCtx.font = '22px Inter, sans-serif';
-  bellyCtx.fillStyle = '#d6e0f5';
-  const latest = liveCallTranscript.slice(-3);
-  if (latest.length === 0) {
-    bellyCtx.textAlign = 'center';
-    bellyCtx.fillText('Speak now — the AI can hear you', cw / 2, ch / 2 + 8);
   } else {
-    let y = 118;
-    latest.forEach((msg) => {
-      bellyCtx.fillStyle = msg.role === 'agent' ? '#ffb16f' : '#ffffff';
-      bellyCtx.font = 'bold 20px Inter, sans-serif';
-      bellyCtx.fillText(msg.role === 'agent' ? 'AI' : 'You', 34, y);
-      bellyCtx.font = '21px Inter, sans-serif';
-      bellyCtx.fillStyle = '#ffffff';
-      wrapText(bellyCtx, msg.text, cw - 86).slice(0, 2).forEach((line, i) => {
-        bellyCtx.fillText(line, 34, y + 28 + i * 25);
-      });
-      y += 84;
+    // Show the single message with fade-in
+    const alpha = spinActive ? 1 : Math.min(bellyFadeAlpha, 1);
+    bellyCtx.globalAlpha = alpha;
+    bellyCtx.textAlign = 'center';
+
+    // AI message has "OrangeDesk" label, Customer has no label
+    if (isAi) {
+      bellyCtx.font = 'bold 30px Inter, sans-serif';
+      bellyCtx.fillStyle = '#ff7a1a';
+      bellyCtx.textAlign = 'center';
+      bellyCtx.fillText('OrangeDesk', cw / 2, ch / 2 - 80);
+    }
+
+    // Message text — extra large, centered, wrapped
+    bellyCtx.font = 'bold 44px Inter, sans-serif';
+    bellyCtx.fillStyle = '#ffffff';
+    const lines = wrapText(bellyCtx, msg.text, cw - 60);
+    const lineHeight = 56;
+
+    // Shift slightly down if there is a header label, otherwise center vertically
+    const startY = isAi
+      ? ch / 2 - ((lines.length - 1) * lineHeight) / 2 + 20
+      : ch / 2 - ((lines.length - 1) * lineHeight) / 2;
+
+    lines.forEach((line, i) => {
+      bellyCtx.fillText(line, cw / 2, startY + i * lineHeight);
     });
+
+    bellyCtx.globalAlpha = 1;
   }
 
-  bellyCtx.fillStyle = '#ff7a1a';
-  bellyCtx.beginPath();
-  bellyCtx.roundRect(122, ch - 72, 256, 50, 25);
-  bellyCtx.fill();
-  bellyCtx.fillStyle = '#fff';
-  bellyCtx.font = 'bold 22px Inter, sans-serif';
-  bellyCtx.textAlign = 'center';
-  bellyCtx.fillText('Tap to end call', cw / 2, ch - 39);
   bellyTexture.needsUpdate = true;
 }
 
@@ -648,7 +625,7 @@ function animate() {
   robot.position.y = 0.2 + Math.sin(elapsed * 2.5) * 0.08;
 
   // Expressive hand gestures while the robot is talking or in a live call
-  const talkingGesture = liveCallState === 'active' || currentTypingState || (currentMessageIndex >= 0 && bookingConversation[currentMessageIndex]?.sender === 'ai');
+  const talkingGesture = currentTypingState || (currentMessageIndex >= 0 && bookingConversation[currentMessageIndex]?.sender === 'ai');
   const gestureSpeed = talkingGesture ? 8.5 : 3.0;
   const gestureLift = talkingGesture ? 0.12 : 0.035;
   leftArmGroup.position.y = -0.3 + Math.sin(elapsed * gestureSpeed) * gestureLift;
@@ -715,8 +692,8 @@ function animate() {
     bodyGroup.rotation.x += (0 - bodyGroup.rotation.x) * 0.1;
   }
 
-  // Update booking conversation state machine only after explicitly started
-  if (!spinActive && currentMessageIndex !== -1) {
+  // Update booking conversation state machine
+  if (!spinActive) {
     conversationTimer += deltaTime;
     if (!currentTypingState && currentMessageIndex >= 0) {
       bellyFadeAlpha += deltaTime * 2.5; // smooth fade in
@@ -961,6 +938,28 @@ if (briefForm) {
 function setLiveCallState(state, status) {
   liveCallState = state;
   if (status) liveCallStatus = status;
+  const card = document.querySelector('#homepage-test-call');
+  const statusEl = document.querySelector('#home-call-status');
+  const button = document.querySelector('#home-call-button');
+  const transcript = document.querySelector('#home-call-transcript');
+  card?.setAttribute('data-call-state', state);
+  if (statusEl) statusEl.textContent = liveCallStatus;
+  if (button) button.textContent = state === 'active' ? 'End live test call' : state === 'connecting' ? 'Connecting...' : 'Start live AI test call';
+  if (transcript && liveCallTranscript.length === 0 && state !== 'active') {
+    transcript.innerHTML = '<p>Start the call and your live transcript will appear here.</p>';
+  }
+}
+
+function renderHomeCallTranscript() {
+  const transcript = document.querySelector('#home-call-transcript');
+  if (!transcript) return;
+  if (liveCallTranscript.length === 0) {
+    transcript.innerHTML = '<p>Speak after the call connects. Transcript appears here.</p>';
+    return;
+  }
+  transcript.innerHTML = liveCallTranscript.slice(-6).map((msg) =>
+    `<p class="${msg.role === 'agent' ? 'agent' : 'user'}"><b>${msg.role === 'agent' ? 'OrangeWeb AI' : 'You'}</b><span>${msg.text}</span></p>`
+  ).join('');
 }
 
 function isAgentParticipant(participant) {
@@ -993,7 +992,7 @@ async function requestHeroTestCall() {
       mode: 'cors',
       credentials: 'omit',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ source: 'orangeweb-homepage-robot' })
+      body: JSON.stringify({ source: 'orangeweb-homepage-section' })
     });
     const payload = await res.json().catch(() => null);
     if (!res.ok || !payload?.success) throw new Error(payload?.error || 'Could not start test call');
@@ -1027,6 +1026,7 @@ async function requestHeroTestCall() {
         const role = isAgentParticipant(participant) ? 'agent' : 'user';
         liveCallTranscript.push({ role, text });
         liveCallTranscript = liveCallTranscript.slice(-8);
+        renderHomeCallTranscript();
       }
     });
 
@@ -1049,6 +1049,7 @@ async function requestHeroTestCall() {
       if (liveCallState === 'active') {
         const seconds = Math.floor((Date.now() - liveCallStartTime) / 1000);
         liveCallStatus = `Live ${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+        document.querySelector('#home-call-status')?.replaceChildren(document.createTextNode(liveCallStatus));
       }
     }, 1000);
   } catch (err) {
@@ -1080,14 +1081,7 @@ async function endHeroTestCall() {
   setLiveCallState('ended', 'Call ended — tap to call again');
 }
 
-canvas.addEventListener('click', (event) => {
-  const rect = canvas.getBoundingClientRect();
-  pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-  pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-  raycaster.setFromCamera(pointer, camera);
-  const hits = raycaster.intersectObject(bellyPlate, true);
-  if (hits.length) requestHeroTestCall();
-});
+document.querySelector('#home-call-button')?.addEventListener('click', requestHeroTestCall);
 
 resize();
 animate();

@@ -21,7 +21,7 @@
     <meta name="twitter:image" content="https://orangeweb.io/assets/orangeweb-logo-io.png">
     <title>OrangeWeb.io | AI Receptionist for Service Businesses</title>
     <link rel="preconnect" href="https://unpkg.com">
-    <link rel="stylesheet" href="./styles.css?v=20260721-livecall">
+    <link rel="stylesheet" href="./styles.css?v=20260721-callsection">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -119,12 +119,12 @@
             A calm, always-on front desk that qualifies requests, books appointments, and follows up without adding pressure to your team.
           </p>
           <div class="actions">
-            <a class="button primary" href="#product">Press the robot to test call</a>
+            <a class="button primary" href="#homepage-test-call">Test the AI live</a>
             <a class="button ghost" href="#how-it-works">Watch how it works</a>
           </div>
         </div>
 
-        <div class="product-stage" id="product"><div class="globe-stage" aria-label="Interactive AI Agent with live test call button"><canvas id="scene" aria-label="Press the robot belly button to start a live AI test call"></canvas><p class="robot-live-hint">Press the orange button on the robot belly to talk live.</p></div></div></section>
+        <div class="product-stage" id="product"><div class="globe-stage" aria-label="Interactive AI Agent"><canvas id="scene" aria-hidden="true"></canvas></div></div></section>
 
       <section class="metrics" aria-label="Receptionist outcomes">
         <article>
@@ -139,6 +139,23 @@
           <strong>SMS &amp; Email</strong>
           <span>confirmations, reminders, and follow-up sequences</span>
         </article>
+      </section>
+
+      <section class="live-test-call" id="homepage-test-call" data-call-state="idle" aria-label="Live AI receptionist test call">
+        <div class="live-test-copy">
+          <p class="label">Try the AI live</p>
+          <h2>Talk to the receptionist right now.</h2>
+          <p>Start a browser call, allow your microphone, and have a real conversation with the OrangeWeb AI receptionist demo.</p>
+          <div class="live-test-actions">
+            <button class="button primary" id="home-call-button" type="button">Start live AI test call</button>
+            <span id="home-call-status" role="status">Ready to start</span>
+          </div>
+        </div>
+        <div class="live-call-card">
+          <div class="live-call-top"><span></span><strong>Live test call</strong><em>WebRTC</em></div>
+          <div class="live-call-orb" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="home-call-transcript" id="home-call-transcript" aria-live="polite"><p>Start the call and your live transcript will appear here.</p></div>
+        </div>
       </section>
 
       <section class="section intro">
