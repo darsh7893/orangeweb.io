@@ -119,7 +119,7 @@
             A calm, always-on front desk that qualifies requests, books appointments, and follows up without adding pressure to your team.
           </p>
           <div class="actions">
-            <a class="button primary" href="#homepage-test-call">Test the AI live</a>
+            <a class="button primary" href="#homepage-test-call" hidden>Test the AI live</a>
             <a class="button ghost" href="#how-it-works">Watch how it works</a>
           </div>
         </div>
@@ -141,7 +141,7 @@
         </article>
       </section>
 
-      <section class="live-test-call" id="homepage-test-call" data-call-state="idle" aria-label="Live AI receptionist test call">
+      <section class="live-test-call" id="homepage-test-call" data-call-state="idle" aria-label="Live AI receptionist test call" hidden>
         <div class="live-test-copy">
           <p class="label">Try the AI live</p>
           <h2>Talk to the receptionist right now.</h2>
