@@ -1784,6 +1784,7 @@ footer img {
   }
 
   .hero,
+  .live-test-call,
   .section,
   .theatre,
   .case-card,
@@ -1822,6 +1823,19 @@ footer img {
     grid-template-columns: 1fr;
   }
 
+  .live-test-copy,
+  .live-test-copy .label,
+  .live-test-copy h2,
+  .live-test-copy p:not(.label),
+  .live-test-actions {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .live-call-card {
+    min-width: 0;
+  }
+
   .form-note {
     grid-column: 1;
   }
@@ -1847,6 +1861,51 @@ footer img {
 
   .hero {
     padding: 106px 22px 48px;
+  }
+
+  .live-test-call {
+    padding: 48px 22px;
+    gap: 24px;
+  }
+
+  .live-test-copy h2 {
+    max-width: 340px;
+    font-size: clamp(2.35rem, 12vw, 3.35rem);
+    line-height: 1;
+  }
+
+  .live-test-copy p:not(.label) {
+    font-size: 1rem;
+    line-height: 1.58;
+  }
+
+  .live-test-actions {
+    display: grid;
+  }
+
+  #home-call-status {
+    text-align: center;
+  }
+
+  .live-call-card {
+    min-height: 360px;
+    border-radius: 26px;
+  }
+
+  .live-call-top {
+    padding: 16px;
+  }
+
+  .live-call-orb {
+    width: 138px;
+    height: 138px;
+    margin: 26px auto 18px;
+  }
+
+  .home-call-transcript {
+    width: calc(100% - 32px);
+    min-height: 112px;
+    margin-bottom: 22px;
   }
 
   h1 {
